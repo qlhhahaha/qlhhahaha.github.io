@@ -16,22 +16,30 @@
   <meta name="author" content="qlhhahaha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="测试文章这是一个测试文章 ···这里是代码块···">
+    <meta name="description" content="题描述：今天刷leetcode时遇到个死活也想不通的bug 原题很简单，线性数组插值问题，暴力遍历和二分法都可以做  不假思索用区间左闭右开的二分法，三下五除二就整了出来，胸有成竹😋 12345678910111213141516class Solution &amp;#123;public:    int searchInsert(vector&lt;int&gt;&amp; nums, int ta">
 <meta property="og:type" content="article">
-<meta property="og:title" content="集成工作流测试">
-<meta property="og:url" content="http://example.com/2023/04/13/ci-test/index.html">
+<meta property="og:title" content="记位运算符(＞＞)使用不当引起的一次bug">
+<meta property="og:url" content="http://example.com/2023/04/13/article_1/index.html">
 <meta property="og:site_name" content="钱力晖的小站">
-<meta property="og:description" content="测试文章这是一个测试文章 ···这里是代码块···">
+<meta property="og:description" content="题描述：今天刷leetcode时遇到个死活也想不通的bug 原题很简单，线性数组插值问题，暴力遍历和二分法都可以做  不假思索用区间左闭右开的二分法，三下五除二就整了出来，胸有成竹😋 12345678910111213141516class Solution &amp;#123;public:    int searchInsert(vector&lt;int&gt;&amp; nums, int ta">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/04/13/ifSOReA2dapUFsh.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/13/ildhp5643oy9vXw.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/13/r8KHytNjmulQXIv.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/13/pCmWrFxzQE8AY1T.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/13/vtzFBo3YmZqg4XV.png">
 <meta property="article:published_time" content="2023-04-12T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-04-13T07:22:53.821Z">
+<meta property="article:modified_time" content="2023-04-13T12:27:03.617Z">
 <meta property="article:author" content="qlhhahaha">
-<meta property="article:tag" content="箱子强">
+<meta property="article:tag" content="bug">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="leetcode">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2023/04/13/ifSOReA2dapUFsh.png">
   
   
   
-  <title>集成工作流测试 - 钱力晖的小站</title>
+  <title>记位运算符(＞＞)使用不当引起的一次bug - 钱力晖的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +221,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="集成工作流测试"></span>
+            <span id="subtitle" data-typed-text="记位运算符(＞＞)使用不当引起的一次bug"></span>
           
         </div>
 
@@ -236,7 +244,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          24 字
+          788 字
         
       </span>
     
@@ -247,7 +255,7 @@
         
         
         
-          1 分钟
+          7 分钟
         
       </span>
     
@@ -285,14 +293,35 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">集成工作流测试</h1>
+            <h1 style="display: none">记位运算符(＞＞)使用不当引起的一次bug</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="测试文章"><a href="#测试文章" class="headerlink" title="测试文章"></a>测试文章</h2><p>这是一个测试文章</p>
-<p>···<br>这里是代码块<br>···
- </p>
+                <h1 id="题描述："><a href="#题描述：" class="headerlink" title="题描述："></a>题描述：</h1><p>今天刷leetcode时遇到个死活也想不通的bug</p>
+<p>原题很简单，线性数组插值问题，暴力遍历和二分法都可以做</p>
+<p> <img src="https://s2.loli.net/2023/04/13/ifSOReA2dapUFsh.png" srcset="/img/loading.gif" lazyload><br>不假思索用区间左闭右开的二分法，三下五除二就整了出来，胸有成竹😋</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br>public:<br>    <span class="hljs-type">int</span> <span class="hljs-title function_">searchInsert</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> target)</span> &#123;<br>        <span class="hljs-type">int</span> left = <span class="hljs-number">0</span>, right = nums.size();<br>        <span class="hljs-keyword">while</span>(left &lt; right)<br>        &#123;<br>            <span class="hljs-type">int</span> middle = left + (right - left) &gt;&gt; <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">if</span> (nums[middle] &gt; target )<br>                right = middle;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[middle] &lt; target )<br>                left = middle + <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> middle;<br>        &#125;<br>        <span class="hljs-keyword">return</span> right;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>谁知提交时一直在示例3（即输入数组为[1 3 5 6]，查询值target &#x3D; 7）卡bug，提示超时。。</p>
+<hr>
+<h1 id="原因分析："><a href="#原因分析：" class="headerlink" title="原因分析："></a>原因分析：</h1><p>原以为是区间边界条件设置不当，反复检查，手动演算，脑袋想破了也觉得没问题。。</p>
+<p>无奈debug，发现执行这一句后，middle一值变化很奇怪。。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> middle = left + (right - left) &gt;&gt; <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+
+<p>突然虎躯一震，意识到可能是运算符优先级一问题，速google之，果然！</p>
+<p><img src="https://s2.loli.net/2023/04/13/ildhp5643oy9vXw.png" srcset="/img/loading.gif" lazyload></p>
+<p><em><strong>原来加减符的优先级是要高于位运算符的！</strong></em><br>一验证发现也的确如此<br><img src="https://s2.loli.net/2023/04/13/r8KHytNjmulQXIv.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://s2.loli.net/2023/04/13/pCmWrFxzQE8AY1T.png" srcset="/img/loading.gif" lazyload></p>
+<hr>
+<h1 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h1><p>加个括号即可</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> middle = left +( (right - left) &gt;&gt; <span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure>
+<p>问题解决，顺利通关！</p>
+<p><img src="https://s2.loli.net/2023/04/13/vtzFBo3YmZqg4XV.png" srcset="/img/loading.gif" lazyload></p>
+<hr>
+<h1 id="总结反思："><a href="#总结反思：" class="headerlink" title="总结反思："></a>总结反思：</h1><ol>
+<li>善于使用括号，尤其是主观上希望某个式子部分先运算时。</li>
+<li>老老实实用乘除得了，别整些什么花里胡哨trick。。代码省下几毫秒，debug多花几十分钟。。</li>
+</ol>
 
                 
               </div>
@@ -305,7 +334,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E7%AE%B1%E5%AD%90%E5%BC%BA/">#箱子强</a>
+        <a href="/tags/bug/">#bug</a>
+      
+        <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>
+      
+        <a href="/tags/leetcode/">#leetcode</a>
       
     </div>
   
@@ -317,8 +350,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>集成工作流测试</div>
-      <div>http://example.com/2023/04/13/ci-test/</div>
+      <div>记位运算符(＞＞)使用不当引起的一次bug</div>
+      <div>http://example.com/2023/04/13/article_1/</div>
     </div>
     <div class="license-meta">
       
