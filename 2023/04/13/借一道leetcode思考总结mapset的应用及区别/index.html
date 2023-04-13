@@ -1,0 +1,816 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="qlhhahaha">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言原题是leetcode349，要求两个数组的交集 这题本身不难，主要是要考虑到：  原题只需求“频率”，无需考虑“顺序”，则应使用哈希表结构，而不是顺序结构+两个for暴力遍历 用于作键值key的是数字而非字母，所以应该用正儿八经的set&#x2F;map，而不是用vector搞伪hash（否则当数字键值很大且稀疏时，vector会浪费大量空间）  不需要设置明确的key，所以用set，而不是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="借一道leetcode思考总结map&#x2F;set的应用及区别">
+<meta property="og:url" content="https://qlhhahaha.github.io/2023/04/13/%E5%80%9F%E4%B8%80%E9%81%93leetcode%E6%80%9D%E8%80%83%E6%80%BB%E7%BB%93mapset%E7%9A%84%E5%BA%94%E7%94%A8%E5%8F%8A%E5%8C%BA%E5%88%AB/index.html">
+<meta property="og:site_name" content="钱力晖的小站">
+<meta property="og:description" content="前言原题是leetcode349，要求两个数组的交集 这题本身不难，主要是要考虑到：  原题只需求“频率”，无需考虑“顺序”，则应使用哈希表结构，而不是顺序结构+两个for暴力遍历 用于作键值key的是数字而非字母，所以应该用正儿八经的set&#x2F;map，而不是用vector搞伪hash（否则当数字键值很大且稀疏时，vector会浪费大量空间）  不需要设置明确的key，所以用set，而不是">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/04/13/WmNqiBn9R6Lh7f4.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/13/w8kQyJztoIBaq1E.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/13/A3rM12B8DJKzVS7.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/13/bMPIHgarpTBKlu1.png">
+<meta property="article:published_time" content="2023-04-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-04-13T14:07:41.152Z">
+<meta property="article:author" content="qlhhahaha">
+<meta property="article:tag" content="c++">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="哈希算法">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2023/04/13/WmNqiBn9R6Lh7f4.png">
+  
+  
+  
+  <title>借一道leetcode思考总结map/set的应用及区别 - 钱力晖的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"qlhhahaha.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"kycRyikhVWmN4EpKW0iOTt4g-gzGzoHsz","app_key":"OZMV9Hx4pERwu1aLb0BkeQDH","server_url":"https://kycryikh.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>钱力晖的小站</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>文档</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/">
+                    
+                    <span>主题博客</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/guide/">
+                    
+                    <span>配置指南</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/icon/">
+                    
+                    <span>图标用法</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="借一道leetcode思考总结map/set的应用及区别"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-13 00:00" pubdate>
+          2023年4月13日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          45 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">借一道leetcode思考总结map/set的应用及区别</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>原题是leetcode349，要求两个数组的交集</p>
+<p><img src="https://s2.loli.net/2023/04/13/WmNqiBn9R6Lh7f4.png" srcset="/img/loading.gif" lazyload alt=" "><br>这题本身不难，主要是要考虑到：</p>
+<ol>
+<li>原题只需求“频率”，无需考虑“顺序”，则应使用哈希表结构，而不是顺序结构+两个for暴力遍历</li>
+<li>用于作键值key的是数字而非字母，所以应该用正儿八经的set&#x2F;map，而不是用vector搞伪hash（否则当数字键值很大且稀疏时，vector会浪费大量空间） </li>
+<li>不需要设置明确的key，所以用set，而不是map</li>
+<li>不考虑顺序，所以用unordered_set</li>
+</ol>
+<p>上述思路理清之后，代码自然就出来了</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">intersection</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums1, vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums2)</span> </span><br><span class="hljs-function">    </span>&#123;<br>        unordered_set&lt;<span class="hljs-type">int</span>&gt; result_set; <span class="hljs-comment">// 存放结果，之所以用set是为了给结果集去重</span><br>        <span class="hljs-function">unordered_set&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">nums_set</span><span class="hljs-params">(nums1.begin(), nums1.end())</span></span>;<br>        <br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> iter : nums2) <br>        &#123;<br>            <span class="hljs-comment">// 发现nums2的元素 在nums_set里又出现过</span><br>            <span class="hljs-keyword">if</span> (nums_set.<span class="hljs-built_in">find</span>(iter) != nums_set.<span class="hljs-built_in">end</span>()) <br>            &#123;<br>                result_set.<span class="hljs-built_in">insert</span>(iter); <br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;(result_set.<span class="hljs-built_in">begin</span>(), result_set.<span class="hljs-built_in">end</span>());<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>由此题我们可以一窥set&#x2F;map的具体使用场景，下面对其差别和应用进行简单总结</p>
+<hr>
+<h1 id="一、定义和类型"><a href="#一、定义和类型" class="headerlink" title="一、定义和类型"></a>一、定义和类型</h1><p>STL中的部分容器（vector、list、deque等）底层为线性序列的数据结构，故将这些容器统称为<strong>序列式容器</strong>，里面存储的是元素本身；对应的，有另外一种用&lt;key，value&gt;键值对方式储存数据的数据结构，我们称其为<strong>关联式容器</strong>，典型的有set类和map类容器。</p>
+<p>这种关联式容器的motivition应该是用某种特殊的底层数据结构来代替线性序列，以避免线性结构容易导致的空间浪费问题，同时提高curd效率 – – 线性序列为O(n)，那再提高就是O(log n)和O(1)，对应的是啥捏？</p>
+<p><em><strong>树和hash table嘛！这也正是set\map的底层实现方式</strong></em></p>
+<p>具体如下：</p>
+<table>
+<thead>
+<tr>
+<th>集合</th>
+<th>底层实现</th>
+<th>是否有序</th>
+<th>数值可重复</th>
+<th>数值可更改</th>
+<th>curd效率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>std::set</td>
+<td>红黑树</td>
+<td>有序</td>
+<td>否</td>
+<td>否</td>
+<td>O(log n)</td>
+</tr>
+<tr>
+<td>std::multiset</td>
+<td>红黑树</td>
+<td>有序</td>
+<td>是</td>
+<td>否</td>
+<td>O(logn)</td>
+</tr>
+<tr>
+<td>std::unordered_set</td>
+<td>哈希表</td>
+<td>无序</td>
+<td>否</td>
+<td>否</td>
+<td>O(1)</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>集合</th>
+<th>底层实现</th>
+<th>是否有序</th>
+<th>数值可重复</th>
+<th>数值可更改</th>
+<th>curd效率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>std::map</td>
+<td>红黑树</td>
+<td>有序</td>
+<td>key不可重复</td>
+<td>否</td>
+<td>O(log n)</td>
+</tr>
+<tr>
+<td>std::multimap</td>
+<td>红黑树</td>
+<td>有序</td>
+<td>key可重复</td>
+<td>否</td>
+<td>O(logn)</td>
+</tr>
+<tr>
+<td>std::unordered_set</td>
+<td>哈希表</td>
+<td>无序</td>
+<td>key不可重复</td>
+<td>否</td>
+<td>O(1)</td>
+</tr>
+</tbody></table>
+<p>其需要注意的是，set\multiset\map\multimap的实现都为红黑树，红黑树是一种平衡二叉搜索树，所以key有序且不能修改，修改key会导致整棵树的错乱；<br>而我们要用集合来解决hash问题时，优先使用unordered，因为其底层使用hash table，curd效率最高（只需执行一次hash function，复杂度为O(1)）</p>
+<hr>
+<h1 id="二、set类说明"><a href="#二、set类说明" class="headerlink" title="二、set类说明"></a>二、set类说明</h1><ol>
+<li>与map&#x2F;multimap不同，map中存储的是真正的键值对&lt;key, value&gt;，set中只放value，但在底层实际存放的是由&lt;value, value&gt;构成的键值对（即一个元素的value同时也会标识它，value就是key）。故set中插入元素时，<strong>只需要插入value即可，不需要构造键值对</strong></li>
+<li>set中的元素不可以重复，因此可以使用set进行<strong>去重</strong></li>
+<li>set中的元素有序（默认升序），故可用iteration<strong>遍历set得有序序列</strong></li>
+<li>set中的元素<strong>不允许修改</strong>（元素总是const）</li>
+<li>set中的count()方法只能返回0或1，所以其实就是个find()。。而find()返回的是查找元素的位置指针，没有则返回set.end()</li>
+<li>multiset与set的区别是<strong>前者中的元素可重复</strong>，其它都一样</li>
+<li>unordered_set与set的区别是<strong>前者中的元素不会排序</strong></li>
+</ol>
+<p>代码示例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;set&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unordered_set&gt;</span></span><br><br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">TestSet</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-comment">// 用数组array中的元素构造set</span><br>	<span class="hljs-type">int</span> array[] = &#123; <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">9</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">9</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">0</span> &#125;;<br>	set&lt;<span class="hljs-type">int</span>&gt; s;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> e : array)<br>		s.<span class="hljs-built_in">insert</span>(e);<br><br>	cout &lt;&lt; <span class="hljs-string">&quot;set中的元素个数为: &quot;</span> &lt;&lt; s.<span class="hljs-built_in">size</span>() &lt;&lt; endl;<br>	<br>	<span class="hljs-comment">// 正向打印set中的元素，从打印结果中可以看出：set可去重</span><br>    cout &lt;&lt; <span class="hljs-string">&quot;正向打印set中的元素: &quot;</span> ;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span>&amp; e : s)<br>		cout&lt;&lt; e &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>	cout &lt;&lt; endl;<br><br>	<span class="hljs-comment">// 使用迭代器逆向打印set中的元素</span><br>    cout &lt;&lt; <span class="hljs-string">&quot;逆向打印set中的元素: &quot;</span> ;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span> it = s.<span class="hljs-built_in">rbegin</span>(); it != s.<span class="hljs-built_in">rend</span>(); ++it)<br>		cout &lt;&lt; *it &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>	cout &lt;&lt; endl;<br><br>	<span class="hljs-comment">// set中值为3的元素出现了几次</span><br>	cout &lt;&lt; <span class="hljs-string">&quot;set中值为x的元素出现了几次：&quot;</span> &lt;&lt; s.<span class="hljs-built_in">count</span>(<span class="hljs-number">0</span>) &lt;&lt; endl;<br><br>    <span class="hljs-function">multiset&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">muls</span><span class="hljs-params">(array, array + <span class="hljs-keyword">sizeof</span>(array) / <span class="hljs-keyword">sizeof</span>(array[<span class="hljs-number">0</span>]))</span></span>;<br>    cout &lt;&lt;  <span class="hljs-string">&quot;正向打印multiset中的元素: &quot;</span> ;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span>&amp; e : muls)<br>		cout &lt;&lt;e &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>	cout &lt;&lt; endl;<br><br>    <span class="hljs-function">unordered_set&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">unorders</span><span class="hljs-params">(array, array + <span class="hljs-keyword">sizeof</span>(array) / <span class="hljs-keyword">sizeof</span>(array[<span class="hljs-number">0</span>]))</span></span>;<br>    cout &lt;&lt;  <span class="hljs-string">&quot;打印unordered_set中的元素: &quot;</span> ;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span>&amp; e : unorders)<br>		cout &lt;&lt;e &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>	cout &lt;&lt; endl;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">TestSet</span>();<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>运行结果：<br> <img src="https://s2.loli.net/2023/04/13/w8kQyJztoIBaq1E.png" srcset="/img/loading.gif" lazyload></p>
+<hr>
+<h1 id="三、map类说明"><a href="#三、map类说明" class="headerlink" title="三、map类说明"></a>三、map类说明</h1><ol>
+<li>需要<strong>构造键值对</strong></li>
+<li>map支持下标访问符，即在[]中放入key，就可以找到与key对应的value；也支持.at()方法，但二者有所不同（见下面代码）</li>
+<li>multimap和map的唯一不同就是：map中的<strong>key是唯一</strong>的，而multimap中key是<strong>可以重复的</strong></li>
+<li>unordered_map和map : : unordered_map存储元素时是<strong>没有顺序的</strong>，只是根据key的哈希值，将元素存在指定位置，所以根据key查找单个value时非常高效</li>
+</ol>
+<p>代码示例（来源: <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_61635026/article/details/126070134?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166593410616782412589556%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=166593410616782412589556&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-6-126070134-null-null.142%5Ev56%5Econtrol_1,201%5Ev3%5Econtrol_2&utm_term=stl%20set%E5%92%8Cmap%E7%9A%84%E5%8C%BA%E5%88%AB&spm=1018.2226.3001.4187">C++ STL中 set和map介绍以及使用方法</a>）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;set&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;map&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br> <br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">TestMap</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	map&lt;string, string&gt; m;<br>	<span class="hljs-comment">// 向map中插入元素的方式：</span><br>	<span class="hljs-comment">// 将键值对&lt;&quot;peach&quot;,&quot;桃子&quot;&gt;插入map中，用pair直接来构造键值对</span><br>	m.<span class="hljs-built_in">insert</span>(<span class="hljs-built_in">pair</span>&lt;string, string&gt;(<span class="hljs-string">&quot;peach&quot;</span>, <span class="hljs-string">&quot;桃子&quot;</span>));<br>	<span class="hljs-comment">// 将键值对&lt;&quot;peach&quot;,&quot;桃子&quot;&gt;插入map中，用make_pair函数来构造键值对</span><br>	m.<span class="hljs-built_in">insert</span>(<span class="hljs-built_in">make_pair</span>(<span class="hljs-string">&quot;banan&quot;</span>, <span class="hljs-string">&quot;香蕉&quot;</span>));<br><br>	<span class="hljs-comment">/*</span><br><span class="hljs-comment">	operator[]的原理是：</span><br><span class="hljs-comment">	 用&lt;key, T()&gt;构造一个键值对，然后调用insert()函数将该键值对插入到map中</span><br><span class="hljs-comment">	 如果key已经存在，插入失败，insert函数返回该key所在位置的迭代器</span><br><span class="hljs-comment">	 如果key不存在，插入成功，insert函数返回新插入元素所在位置的迭代器</span><br><span class="hljs-comment">	 operator[]函数最后将insert返回值键值对中的value返回</span><br><span class="hljs-comment">	*/</span><br><br>	<span class="hljs-comment">// 将&lt;&quot;apple&quot;, &quot;&quot;&gt;插入map中，插入成功，返回value的引用，将“苹果”赋值给该引用结果</span><br>	m[<span class="hljs-string">&quot;apple&quot;</span>] = <span class="hljs-string">&quot;苹果&quot;</span>;<br><br>	<span class="hljs-comment">// key不存在时抛异常</span><br>	<span class="hljs-comment">//m.at(&quot;waterme&quot;) = &quot;水蜜桃&quot;;</span><br><br>	cout &lt;&lt; m.<span class="hljs-built_in">size</span>() &lt;&lt; endl;<br>	<span class="hljs-comment">// 用迭代器去遍历map中的元素，可以得到一个按照key排序的序列</span><br>	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span>&amp; e : m)<br>		cout &lt;&lt; e.first &lt;&lt; <span class="hljs-string">&quot;---&gt;&quot;</span> &lt;&lt; e.second &lt;&lt; endl;<br>	cout &lt;&lt; endl;<br>	<span class="hljs-comment">// map中的键值对key一定是唯一的，如果key存在将插入失败</span><br>	<span class="hljs-keyword">auto</span> ret = m.<span class="hljs-built_in">insert</span>(<span class="hljs-built_in">make_pair</span>(<span class="hljs-string">&quot;peach&quot;</span>, <span class="hljs-string">&quot;another桃子&quot;</span>));<br>	<span class="hljs-keyword">if</span> (ret.second)<br>		cout &lt;&lt; <span class="hljs-string">&quot;&lt;peach, another桃子&gt;不在map中, 已经插入&quot;</span> &lt;&lt; endl;<br>	<span class="hljs-keyword">else</span><br>		cout &lt;&lt; <span class="hljs-string">&quot;键值为peach的元素已经存在：&quot;</span> &lt;&lt; ret.first-&gt;first &lt;&lt; <span class="hljs-string">&quot;---&gt;&quot;</span><br>		&lt;&lt; ret.first-&gt;second &lt;&lt; <span class="hljs-string">&quot; 插入失败&quot;</span> &lt;&lt; endl;<br>	<span class="hljs-comment">// 删除key为&quot;apple&quot;的元素</span><br>	m.<span class="hljs-built_in">erase</span>(<span class="hljs-string">&quot;apple&quot;</span>);<br>	<span class="hljs-keyword">if</span> (<span class="hljs-number">1</span> == m.<span class="hljs-built_in">count</span>(<span class="hljs-string">&quot;apple&quot;</span>))<br>		cout &lt;&lt; <span class="hljs-string">&quot;apple还在&quot;</span> &lt;&lt; endl;<br>	<span class="hljs-keyword">else</span><br>		cout &lt;&lt; <span class="hljs-string">&quot;apple被吃了&quot;</span> &lt;&lt; endl;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">TestMap</span>();<br><br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<p> <img src="https://s2.loli.net/2023/04/13/A3rM12B8DJKzVS7.png" srcset="/img/loading.gif" lazyload><br>如果用at()查值，则key不在时抛出异常</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">m.<span class="hljs-built_in">at</span>(<span class="hljs-string">&quot;waterme&quot;</span>) = <span class="hljs-string">&quot;水蜜桃&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2023/04/13/bMPIHgarpTBKlu1.png" srcset="/img/loading.gif" lazyload></p>
+<hr>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><strong>1. 用set类还是map类？</strong><br>如果需要建立明确的<strong>键值对应关系</strong>（如示例中的水果），那只能用map；如果只需知道“<strong>存在与否</strong>”，那用set就够了（如leetcode例题，其实没有体现一个明确的key，coding时关心的也是value而不是key）</p>
+<p><strong>2. 用set类还是array伪hash？</strong><br>如果key分布在一个<strong>不大的连续区间</strong>内（ 如26个字母），则可以直接用array，这样更快，因为set不仅占用空间比数组大，而且速度要比数组慢，set把数值映射到key上都要做hash计算的；		<br>但如果key随机则用set，如key为<strong>分布稀疏</strong>的大数字时，用数组就非常浪费空间，只能用set。</p>
+<p><strong>3. 用set还是unordered_set？（map同理）</strong><br>有序set（红黑树），无序unordered_set（hash table）</p>
+<p><strong>PS.</strong> py中的in关键字在不同结构中（tuple, list, dict, set）查找元素时效率是相差很大的，因为dict, set底层是一个hash table；而tuple, list只是一个单纯类于数组的线性结构。。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%87%AA%E5%B7%B1%E4%BA%8B%E6%83%85%E9%9D%A0%E8%87%AA%E5%B7%B1/" class="category-chain-item">自己事情靠自己</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/c/">#c++</a>
+      
+        <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>
+      
+        <a href="/tags/%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/">#哈希算法</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>借一道leetcode思考总结map/set的应用及区别</div>
+      <div>https://qlhhahaha.github.io/2023/04/13/借一道leetcode思考总结mapset的应用及区别/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>qlhhahaha</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月13日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/04/13/%E5%80%9FtopK%E9%A2%98%E7%9B%AE%E6%80%9D%E8%80%83%E6%80%BB%E7%BB%93%E5%A0%86%E4%B8%8E%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97%E7%94%A8%E6%B3%95/" title="借top K题目思考总结堆（heap）与优先队列（priority_queque）用法">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">借top K题目思考总结堆（heap）与优先队列（priority_queque）用法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/13/%E8%AE%B0%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6(%EF%BC%9E%EF%BC%9E)%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%BD%93%E5%BC%95%E8%B5%B7%E7%9A%84%E4%B8%80%E6%AC%A1bug/" title="记位运算符(＞＞)使用不当引起的一次bug">
+                        <span class="hidden-mobile">记位运算符(＞＞)使用不当引起的一次bug</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

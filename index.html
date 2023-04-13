@@ -60,7 +60,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"qlhhahaha.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"qlhhahaha.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"kycRyikhVWmN4EpKW0iOTt4g-gzGzoHsz","app_key":"OZMV9Hx4pERwu1aLb0BkeQDH","server_url":"https://kycryikh.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -70,6 +70,23 @@
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
 
 
   
@@ -130,7 +147,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                <span>联系我</span>
+                <span>关于</span>
               </a>
             </li>
           
@@ -242,15 +259,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/04/13/article_1/" target="_self">
-          记位运算符(＞＞)使用不当引起的一次bug
+        <a href="/2023/04/13/%E5%80%9FtopK%E9%A2%98%E7%9B%AE%E6%80%9D%E8%80%83%E6%80%BB%E7%BB%93%E5%A0%86%E4%B8%8E%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97%E7%94%A8%E6%B3%95/" target="_self">
+          借top K题目思考总结堆（heap）与优先队列（priority_queque）用法
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/13/article_1/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/13/%E5%80%9FtopK%E9%A2%98%E7%9B%AE%E6%80%9D%E8%80%83%E6%80%BB%E7%BB%93%E5%A0%86%E4%B8%8E%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97%E7%94%A8%E6%B3%95/" target="_self">
         <div>
-          fuckyou2：今天刷leetcode时遇到个死活也想不通的bug 原题很简单，线性数组插值问题，暴力遍历和二分法都可以做  不假思索用区间左闭右开的二分法，三下五除二就整了出来，胸有成竹😋 12345678910111213141516class Solution &#123;public:    int searchInsert(vector&lt;int&gt;&amp; nums, i
+          一、前言今天做了传说中的top K ，即“用大顶堆&#x2F;小顶堆对数据进行排序”的经典题目 本题思路：  用map记录每个元素出现的频率 用heap对map进行排序并节选出前K个元素  若第一次见此类题，难点当为heap的原理和对应stl容器（priority_queue）的用法。查阅了一些资料，发现不管是leetcode题解抑或博客文章都写得略语焉不详，对新手不甚友好，故笔者试图用自己的话对
         </div>
       </a>
 
@@ -264,15 +281,166 @@
           </div>
         
         
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%87%AA%E5%B7%B1%E4%BA%8B%E6%83%85%E9%9D%A0%E8%87%AA%E5%B7%B1/" class="category-chain-item">自己事情靠自己</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
         
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/bug/">#bug</a>
+              <a href="/tags/c/">#c++</a>
             
               <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>
             
               <a href="/tags/leetcode/">#leetcode</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/04/13/%E5%80%9F%E4%B8%80%E9%81%93leetcode%E6%80%9D%E8%80%83%E6%80%BB%E7%BB%93mapset%E7%9A%84%E5%BA%94%E7%94%A8%E5%8F%8A%E5%8C%BA%E5%88%AB/" target="_self">
+          借一道leetcode思考总结map/set的应用及区别
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/13/%E5%80%9F%E4%B8%80%E9%81%93leetcode%E6%80%9D%E8%80%83%E6%80%BB%E7%BB%93mapset%E7%9A%84%E5%BA%94%E7%94%A8%E5%8F%8A%E5%8C%BA%E5%88%AB/" target="_self">
+        <div>
+          前言原题是leetcode349，要求两个数组的交集 这题本身不难，主要是要考虑到：  原题只需求“频率”，无需考虑“顺序”，则应使用哈希表结构，而不是顺序结构+两个for暴力遍历 用于作键值key的是数字而非字母，所以应该用正儿八经的set&#x2F;map，而不是用vector搞伪hash（否则当数字键值很大且稀疏时，vector会浪费大量空间）  不需要设置明确的key，所以用set，而不是
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-04-13 00:00" pubdate>
+              2023-04-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%87%AA%E5%B7%B1%E4%BA%8B%E6%83%85%E9%9D%A0%E8%87%AA%E5%B7%B1/" class="category-chain-item">自己事情靠自己</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/c/">#c++</a>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>
+            
+              <a href="/tags/%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/">#哈希算法</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/04/13/%E8%AE%B0%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6(%EF%BC%9E%EF%BC%9E)%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%BD%93%E5%BC%95%E8%B5%B7%E7%9A%84%E4%B8%80%E6%AC%A1bug/" target="_self">
+          记位运算符(＞＞)使用不当引起的一次bug
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/13/%E8%AE%B0%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6(%EF%BC%9E%EF%BC%9E)%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%BD%93%E5%BC%95%E8%B5%B7%E7%9A%84%E4%B8%80%E6%AC%A1bug/" target="_self">
+        <div>
+          问题描述今天刷leetcode时遇到个死活也想不通的bug 原题很简单，线性数组插值问题，暴力遍历和二分法都可以做  不假思索用区间左闭右开的二分法，三下五除二就整了出来，胸有成竹😋 12345678910111213141516class Solution &#123;public:    int searchInsert(vector&lt;int&gt;&amp; nums, int ta
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-04-13 00:00" pubdate>
+              2023-04-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%87%AA%E5%B7%B1%E4%BA%8B%E6%83%85%E9%9D%A0%E8%87%AA%E5%B7%B1/" class="category-chain-item">自己事情靠自己</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>
+            
+              <a href="/tags/leetcode/">#leetcode</a>
+            
+              <a href="/tags/bug/">#bug</a>
             
           </div>
         
@@ -382,6 +550,8 @@
 
 
 
+
+  <script defer src="/js/leancloud.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
