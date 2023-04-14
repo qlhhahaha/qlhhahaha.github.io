@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://s2.loli.net/2023/04/14/48HvQ9oENy1ksPd.png">
 <meta property="og:image" content="https://s2.loli.net/2023/04/14/H3Y1s7jSPFquXCK.png">
 <meta property="article:published_time" content="2023-04-13T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-04-14T05:36:33.020Z">
+<meta property="article:modified_time" content="2023-04-14T06:03:15.282Z">
 <meta property="article:author" content="qlhhahaha">
 <meta property="article:tag" content="c++">
 <meta property="article:tag" content="斯坦福">
@@ -376,8 +376,7 @@
 <li>不要搞混vector的_size和_capacity属性</li>
 </ol>
 <p><img src="https://s2.loli.net/2023/04/14/Zv2KtfI5RH7MVgW.png" srcset="/img/loading.gif" lazyload></p>
-<ol>
-<li><h1 id="Lecture7、Classes"><a href="#Lecture7、Classes" class="headerlink" title="Lecture7、Classes"></a>Lecture7、Classes</h1><ol>
+<h1 id="Lecture7、Classes"><a href="#Lecture7、Classes" class="headerlink" title="Lecture7、Classes"></a>Lecture7、Classes</h1><ol>
 <li>STL中所有的container都是class</li>
 <li><strong>模板类（template class）</strong></li>
 </ol>
@@ -406,10 +405,8 @@
 
 <div class="note note-warning">
             <p>💡 PS. 注意：模板类和模板函数都是在使用（即实例化）之后才会编译！不用就不编译。 而不同的实例化编译出的结果也不一样，所以其实是编译器帮你完成了“复制粘贴多个版本”这一步。</p>
-          </div>
-
-
-
+          </div></li>
+</ol>
 <h1 id="Lecture10、Lambda-Functions"><a href="#Lecture10、Lambda-Functions" class="headerlink" title="Lecture10、Lambda Functions"></a>Lecture10、Lambda Functions</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;algorithm&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cmath&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">abssort</span><span class="hljs-params">(<span class="hljs-type">float</span>* x, <span class="hljs-type">unsigned</span> n)</span> </span>&#123;<br>    std::<span class="hljs-built_in">sort</span>(x, x + n,<br>        <span class="hljs-comment">// Lambda expression begins</span><br>        [](<span class="hljs-type">float</span> a, <span class="hljs-type">float</span> b) &#123;<br>            <span class="hljs-built_in">return</span> (std::<span class="hljs-built_in">abs</span>(a) &lt; std::<span class="hljs-built_in">abs</span>(b));<br>        &#125; <span class="hljs-comment">// end of lambda expression</span><br>    );<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p><img src="https://s2.loli.net/2023/04/14/N5Y3hbXFqJDOmaU.png" srcset="/img/loading.gif" lazyload></p>
@@ -460,6 +457,8 @@
 </ol>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">using</span> FuncCallback = std::function&lt;<span class="hljs-built_in">void</span>(<span class="hljs-type">void</span>)&gt;;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">DataCallback</span><span class="hljs-params">(FuncCallback callback)</span></span><br><span class="hljs-function"></span>&#123;<br>	std::cout &lt;&lt; <span class="hljs-string">&quot;Start FuncCallback!&quot;</span> &lt;&lt; std::endl;<br>	<span class="hljs-built_in">callback</span>();<br>	std::cout &lt;&lt; <span class="hljs-string">&quot;End FuncCallback!&quot;</span> &lt;&lt; std::endl;<br>&#125;<br><br><span class="hljs-keyword">auto</span> callback_handler = [&amp;]()&#123;<br>	std::cout &lt;&lt; <span class="hljs-string">&quot;This is callback_handler&quot;</span>;<br>&#125;;<br><br><span class="hljs-built_in">DataCallback</span>(callback_handler);<br></code></pre></td></tr></table></figure>
 
+
+
 <h1 id="Lecture12、Specical-Member-Functions-6个"><a href="#Lecture12、Specical-Member-Functions-6个" class="headerlink" title="Lecture12、Specical Member Functions(6个)"></a>Lecture12、Specical Member Functions(6个)</h1><ol>
 <li><p><strong>介绍：</strong></p>
 <p>C++中类的特殊成员函数有6个，对于一个类</p>
@@ -477,9 +476,10 @@
 <p>对“＝”进行重载，作用是让两个已经初始化完毕的类进行拷贝</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs CPP">myclass A,B；<br>A = B；<br></code></pre></td></tr></table></figure></li>
 </ol>
-<p>​	<div class="note note-warning">
-            <p>​	💡 PS. 上述两个构造函数的应用其实都非常非常广泛 —— 别忘了，stl的容器全都是类！ vector<int>nums1 &#x3D; nums2也用了拷贝赋值构造函数！</p><p>​	</p>
-          </div></p>
+<div class="note note-warning">
+            <p>​	💡 PS. 上述两个构造函数的应用其实都非常非常广泛 —— 别忘了，stl的容器全都是类！ vector<int>nums1 &#x3D; nums2也用了拷贝赋值构造函数！</p>
+          </div>
+
 <ol start="4">
 <li><strong>深拷贝与浅拷贝</strong></li>
 </ol>
@@ -490,9 +490,10 @@
 <p>正确做法是，去显式地定义一个拷贝构造函数，它除了会将原有对象的所有成员变量拷贝给新对象，还会为新对象再分配一块内存，并将原有对象所持有的内存也拷贝过来。这样做的结果是，<strong>原有对象和新对象所持有的动态内存是相互独立的</strong>，更改一个对象的数据不会影响另外一个对象。</p>
 </li>
 </ul>
-<p>​	<div class="note note-warning">
-            <p>​	💡 PS. 如果一个类拥有指针类型的成员变量，那么绝大部分情况下就需要深拷贝，因为只有这样，才能	将指针指向的内容再复制出一份来，让原有对象和新生对象相互独立，彼此之间不受影响。如果类的成	员变量没有指针，一般浅拷贝足矣。</p><p>​	</p>
-          </div></p>
+<div class="note note-warning">
+            <p>​	💡 PS. 如果一个类拥有指针类型的成员变量，那么绝大部分情况下就需要深拷贝，因为只有这样，才能	将指针指向的内容再复制出一份来，让原有对象和新生对象相互独立，彼此之间不受影响。如果类的成	员变量没有指针，一般浅拷贝足矣。</p>
+          </div>
+
 <ul>
 <li><strong>深拷贝的开销往往比浅拷贝大</strong>（除非没有指向动态分配内存的属性），所以我们倾向于尽可能使用浅拷贝</li>
 </ul>
@@ -571,9 +572,12 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">unique_ptr&lt;string&gt; <span class="hljs-title">p1</span><span class="hljs-params">(<span class="hljs-keyword">new</span> string(<span class="hljs-string">&quot;I&#x27;m Li Ming!&quot;</span>))</span></span>;<br><span class="hljs-function">unique_ptr&lt;string&gt; <span class="hljs-title">p2</span><span class="hljs-params">(<span class="hljs-keyword">new</span> string(<span class="hljs-string">&quot;I&#x27;m age 22.&quot;</span>))</span></span>;<br>	<br>cout &lt;&lt; <span class="hljs-string">&quot;p1：&quot;</span> &lt;&lt; p1.<span class="hljs-built_in">get</span>() &lt;&lt; endl;<br>cout &lt;&lt; <span class="hljs-string">&quot;p2：&quot;</span> &lt;&lt; p2.<span class="hljs-built_in">get</span>() &lt;&lt; endl;<br><br><span class="hljs-comment">//p1 = p2;					// error！禁止左值赋值</span><br><span class="hljs-comment">//unique_ptr&lt;string&gt; p3(p2);	// error！禁止左值赋值构造</span><br><br><span class="hljs-function">unique_ptr&lt;string&gt; <span class="hljs-title">p3</span><span class="hljs-params">(std::move(p1))</span></span>;<br>p1 = std::<span class="hljs-built_in">move</span>(p2);	<span class="hljs-comment">// 使用move把左值转成右值就可以赋值了</span><br><br>cout &lt;&lt; <span class="hljs-string">&quot;p1 = p2 赋值后：&quot;</span> &lt;&lt; endl;<br>cout &lt;&lt; <span class="hljs-string">&quot;p1：&quot;</span> &lt;&lt; p1.<span class="hljs-built_in">get</span>() &lt;&lt; endl;<br>cout &lt;&lt; <span class="hljs-string">&quot;p2：&quot;</span> &lt;&lt; p2.<span class="hljs-built_in">get</span>() &lt;&lt; endl;<br></code></pre></td></tr></table></figure>
 
 <p><img src="https://s2.loli.net/2023/04/14/SjMudQh6KBbCa21.png" srcset="/img/loading.gif" lazyload></p>
-<p>​	<div class="note note-warning">
-            <p>💡 PS. 在这里也可以看到，把p2 move成临时值之后，一赋值给p1，它就被释放掉了，内存地址为nullptr</p><p>​	</p>
-          </div></p>
+<div class="note note-warning">
+            <p>💡 PS. 在这里也可以看到，把p2 move成临时值之后，一赋值给p1，它就被释放掉了，内存地址为nullptr</p>
+          </div>
+
+
+
 <ul>
 <li>排它式资源享用：两个指针不能指向同一个资源</li>
 </ul>
@@ -586,15 +590,15 @@
 
 <p><img src="https://s2.loli.net/2023/04/14/cK9a5qX7MnjQHlv.png" srcset="/img/loading.gif" lazyload></p>
 <p><strong>（3）std : : weak_ptr</strong></p>
-<p>TO-DO</p>
+<p>​	TO-DO</p>
 </li>
 <li><p><strong>智能指针初始化方式</strong></p>
 <p>常规初始化方式有两种：显式调用new、使用make_unique()函数</p>
 </li>
 </ol>
 <p><img src="https://s2.loli.net/2023/04/14/dIVEwpKhf47G5aH.png" srcset="/img/loading.gif" lazyload></p>
-<p>Q: Which is better？</p>
-<p>A: std : : make_unique和std : : make_shared更好，因为<strong>显式调用new会分配两次内存</strong>（一次给up，一次是new T）</p>
+<p><strong>Q:</strong> Which is better？</p>
+<p><strong>A:</strong> std : : make_unique和std : : make_shared更好，因为<strong>显式调用new会分配两次内存</strong>（一次给up，一次是new T）</p>
 <hr>
 <h1 id="Assignment：HashMap"><a href="#Assignment：HashMap" class="headerlink" title="Assignment：HashMap"></a>Assignment：HashMap</h1><ol>
 <li><p><strong>using关键字</strong></p>
@@ -609,14 +613,12 @@
 <p>const成员函数可以使用类中的所有成员变量，但是不能修改它们的值，这种措施主要目的还是保护数据。通常将 get类型的函数（get_value、get_size。。）设置为常成员函数。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">size_t</span> <span class="hljs-title">size</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> <span class="hljs-keyword">noexcept</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">bool</span> <span class="hljs-title">empty</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> <span class="hljs-keyword">noexcept</span></span>;<br></code></pre></td></tr></table></figure>
 
-<aside> 💡 PS.
-1. 需要强调的是，必须在成员函数的声明和定义处同时加上 const 关键字。`char *getname() const`和`char *getname()`是两个不同的函数原型，如果只在一个地方加 const 会导致声明和定义处的函数原型冲突。
-2. 区分一下 const 的位置：
+<p>​	</p>
+<div class="note note-warning">
+            <p>💡 PS.</p><ol><li>需要强调的是，必须在成员函数的声明和定义处同时加上 const 关键字。<code>char *getname() const</code>和<code>char *getname()</code>是两个不同的函数原型，如果只在一个地方加 const 会导致声明和定义处的函数原型冲突。</li><li>区分一下 const 的位置：<ul><li>函数开头的 const 用来修饰函数的返回值，表示返回值是 const 类型，也就是不能被修改，例如<code>const char * getname()</code></li><li>函数头部的结尾加上 const 表示常成员函数，这种函数只能读取成员变量的值，而不能修改成员变量的值，例如<code>char * getname() const</code></li></ul></li></ol>
+          </div>
 
-<ul>
-<li>函数开头的 const 用来修饰函数的返回值，表示返回值是 const 类型，也就是不能被修改，例如<code>const char * getname()</code>。</li>
-<li>函数头部的结尾加上 const 表示常成员函数，这种函数只能读取成员变量的值，而不能修改成员变量的值，例如<code>char * getname() const</code>。</li>
-</ul>
+
 </li>
 <li><p><strong>noexcept关键字</strong></p>
 <p>程序员在语义层面声明“我保证这个函数不会异常，编译器你不用检查了”，之后编译器就不会对该函数进行异常检查，也没办法实施try-catch操作</p>
@@ -629,9 +631,11 @@
 <p>这两个show函数可不是重载！<strong>重载函数的形参必须不同！！</strong>这俩就不是同一个函数原型（因为加了const，是常成员函数）</p>
 <p>那么调用的时候如何区分这俩捏？</p>
 <p>它们各自被调用的时机为：<strong>如果定义的对象是常对象，则调用的是const成员函数，如果定义的对象是非常对象，则调用重载的非const成员函数。</strong></p>
-<p>​	<div class="note note-warning">
-            <p> 💡 PS. 不过从另一个角度来理解，也可以把它俩看成重载 —— 首先理解下函数签名：它包含着一个函数的信息，包括<strong>函数名、参数类型、参数个数、顺序以及它所在的类和命名空间，</strong>两个函数只有在签名不同时才能被区分。<br>那上面两个show( )的签名到底哪里不同了捏？ 答案是参数类型，每个成员函数的参数中其实自带this指针，只不过藏起来了，谁调用成员函数，this 就指向谁。<strong>而成员函数尾巴上的const，实质修饰的是this指针！</strong> 当a调用show方法时，函数签名为show(a){}，即a传给this指针，一看，诶！a为非常对象，对应普通this指针，即非const版本的show()；b同理。</p><p>​	</p>
-          </div></p>
+<div class="note note-warning">
+            <p> 💡 PS. 不过从另一个角度来理解，也可以把它俩看成重载 —— 首先理解下函数签名：它包含着一个函数的信息，包括<strong>函数名、参数类型、参数个数、顺序以及它所在的类和命名空间，</strong>两个函数只有在签名不同时才能被区分。<br>那上面两个show( )的签名到底哪里不同了捏？ 答案是参数类型，每个成员函数的参数中其实自带this指针，只不过藏起来了，谁调用成员函数，this 就指向谁。<strong>而成员函数尾巴上的const，实质修饰的是this指针！</strong> 当a调用show方法时，函数签名为show(a){}，即a传给this指针，一看，诶！a为非常对象，对应普通this指针，即非const版本的show()；b同理。</p>
+          </div>
+
+
 </li>
 <li><p><strong>typename关键字作用</strong></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> Map, <span class="hljs-type">bool</span> IsConst&gt;<br><span class="hljs-keyword">typename</span> HashMapIterator&lt;Map, IsConst&gt;::reference HashMapIterator&lt;Map, IsConst&gt;::<span class="hljs-keyword">operator</span>*() <span class="hljs-type">const</span> &#123;<br>    <span class="hljs-keyword">return</span> _node-&gt;value; <br>&#125;<br></code></pre></td></tr></table></figure>
@@ -646,10 +650,9 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">typename</span> T::const_iterator <span class="hljs-title">it</span><span class="hljs-params">(proto.begin())</span></span>;<br></code></pre></td></tr></table></figure>
 
 <p>这样编译器就可以确定T: :const_iterator是一个类型，而不再需要等到实例化时期才能确定，因此消除了前面提到的歧义。</p>
-<p>​	<div class="note note-warning">
-            <p>💡 PS. 总结：同时使用模板类T和域解析符: : 时，就得加typename</p><p>​	</p>
-          </div></p>
-</li>
+<div class="note note-warning">
+            <p>💡 PS. 总结：同时使用模板类T和域解析符: : 时，就得加typename</p>
+          </div></li>
 </ul>
 </li>
 <li><p>模板类中的成员函数（往往也是模板函数）的具体实现通常也会放在.h中，除非函数太多太长</p>
@@ -705,10 +708,6 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">test_fun</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">int</span>&amp; val)</span></span>&#123;<br>    cout &lt;&lt; <span class="hljs-string">&quot;value: &quot;</span> &lt;&lt; val&lt;&lt; <span class="hljs-string">&quot;, type: 左值&quot;</span> &lt;&lt; endl;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">test_fun</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">int</span>&amp;&amp; val)</span></span>&#123;<br>    cout &lt;&lt; <span class="hljs-string">&quot;value: &quot;</span> &lt;&lt; val&lt;&lt; <span class="hljs-string">&quot;, type: 右值&quot;</span> &lt;&lt; endl;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> a = <span class="hljs-number">1</span>;<br>    <span class="hljs-type">int</span> b = <span class="hljs-built_in">move</span>(a);<br>    <span class="hljs-built_in">test_fun</span>(a); <span class="hljs-comment">//a没有被销毁</span><br>    <span class="hljs-built_in">test_fun</span>(b);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p><img src="https://s2.loli.net/2023/04/14/H3Y1s7jSPFquXCK.png" srcset="/img/loading.gif" lazyload></p>
-</li>
-</ol>
-</li>
-</ol>
 </li>
 </ol>
 
