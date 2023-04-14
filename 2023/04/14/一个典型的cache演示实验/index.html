@@ -16,30 +16,33 @@
   <meta name="author" content="qlhhahaha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="问题描述今天刷leetcode时遇到个死活也想不通的bug 原题很简单，线性数组插值问题，暴力遍历和二分法都可以做  不假思索用区间左闭右开的二分法，三下五除二就整了出来，胸有成竹😋 12345678910111213141516class Solution &amp;#123;public:    int searchInsert(vector&lt;int&gt;&amp; nums, int ta">
+    <meta name="description" content="前言：本文章将在可视化环境下对cache工作原理进行演示实验，通过下面三个实验，读者应能：理解cache三种访问模式（直连、两路相连、全连）的工作原理；学会计算命中率（hit rate），并理解各个参数（循环次数、步长、cache size等）如何影响hit rate；理解不同的cache策略（回写、直写、LRU）对hit rate的影响；知道如何优化代码，以实现更高的h">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记位运算符(＞＞)使用不当引起的一次bug">
-<meta property="og:url" content="https://qlhhahaha.github.io/2023/04/13/%E8%AE%B0%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6(%EF%BC%9E%EF%BC%9E)%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%BD%93%E5%BC%95%E8%B5%B7%E7%9A%84%E4%B8%80%E6%AC%A1bug/index.html">
+<meta property="og:title" content="一个典型的cache工作原理演示实验">
+<meta property="og:url" content="https://qlhhahaha.github.io/2023/04/14/%E4%B8%80%E4%B8%AA%E5%85%B8%E5%9E%8B%E7%9A%84cache%E6%BC%94%E7%A4%BA%E5%AE%9E%E9%AA%8C/index.html">
 <meta property="og:site_name" content="钱力晖的小站">
-<meta property="og:description" content="问题描述今天刷leetcode时遇到个死活也想不通的bug 原题很简单，线性数组插值问题，暴力遍历和二分法都可以做  不假思索用区间左闭右开的二分法，三下五除二就整了出来，胸有成竹😋 12345678910111213141516class Solution &amp;#123;public:    int searchInsert(vector&lt;int&gt;&amp; nums, int ta">
+<meta property="og:description" content="前言：本文章将在可视化环境下对cache工作原理进行演示实验，通过下面三个实验，读者应能：理解cache三种访问模式（直连、两路相连、全连）的工作原理；学会计算命中率（hit rate），并理解各个参数（循环次数、步长、cache size等）如何影响hit rate；理解不同的cache策略（回写、直写、LRU）对hit rate的影响；知道如何优化代码，以实现更高的h">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2023/04/13/ifSOReA2dapUFsh.png">
-<meta property="og:image" content="https://s2.loli.net/2023/04/13/ildhp5643oy9vXw.png">
-<meta property="og:image" content="https://s2.loli.net/2023/04/13/r8KHytNjmulQXIv.png">
-<meta property="og:image" content="https://s2.loli.net/2023/04/13/pCmWrFxzQE8AY1T.png">
-<meta property="og:image" content="https://s2.loli.net/2023/04/13/vtzFBo3YmZqg4XV.png">
-<meta property="article:published_time" content="2023-04-12T16:00:00.000Z">
+<meta property="og:image" content="https://s2.loli.net/2023/04/14/WzSZARV1gETyI5C.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/14/lY2BUCygoJn4qvG.jpg">
+<meta property="og:image" content="https://s2.loli.net/2023/04/14/LqTQDVnlOGaXjrc.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/14/Daexf5wv9JUN3jp.jpg">
+<meta property="og:image" content="https://s2.loli.net/2023/04/14/s9TJvIlmoUVYHQX.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/14/5vKhocQJH1t3V7u.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/14/S9wBezDrEpVi1vf.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/14/5DNjmzHWGcyhRis.png">
+<meta property="og:image" content="https://s2.loli.net/2023/04/14/zygfL8HXFeiOMuk.png">
+<meta property="article:published_time" content="2023-04-13T16:00:00.000Z">
 <meta property="article:modified_time" content="2023-04-14T05:36:33.020Z">
 <meta property="article:author" content="qlhhahaha">
-<meta property="article:tag" content="算法">
-<meta property="article:tag" content="leetcode">
-<meta property="article:tag" content="bug">
+<meta property="article:tag" content="体系结构">
+<meta property="article:tag" content="cache">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2023/04/13/ifSOReA2dapUFsh.png">
+<meta name="twitter:image" content="https://s2.loli.net/2023/04/14/WzSZARV1gETyI5C.png">
   
   
   
-  <title>记位运算符(＞＞)使用不当引起的一次bug - 钱力晖的小站</title>
+  <title>一个典型的cache工作原理演示实验 - 钱力晖的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -246,7 +249,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="记位运算符(＞＞)使用不当引起的一次bug"></span>
+            <span id="subtitle" data-typed-text="一个典型的cache工作原理演示实验"></span>
           
         </div>
 
@@ -257,8 +260,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-04-13 00:00" pubdate>
-          2023年4月13日 凌晨
+        <time datetime="2023-04-14 00:00" pubdate>
+          2023年4月14日 凌晨
         </time>
       </span>
     
@@ -269,7 +272,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          788 字
+          1.9k 字
         
       </span>
     
@@ -280,7 +283,7 @@
         
         
         
-          7 分钟
+          17 分钟
         
       </span>
     
@@ -318,35 +321,90 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">记位运算符(＞＞)使用不当引起的一次bug</h1>
+            <h1 style="display: none">一个典型的cache工作原理演示实验</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>今天刷leetcode时遇到个死活也想不通的bug</p>
-<p>原题很简单，线性数组插值问题，暴力遍历和二分法都可以做</p>
-<p> <img src="https://s2.loli.net/2023/04/13/ifSOReA2dapUFsh.png" srcset="/img/loading.gif" lazyload><br>不假思索用区间左闭右开的二分法，三下五除二就整了出来，胸有成竹😋</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br>public:<br>    <span class="hljs-type">int</span> <span class="hljs-title function_">searchInsert</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> target)</span> &#123;<br>        <span class="hljs-type">int</span> left = <span class="hljs-number">0</span>, right = nums.size();<br>        <span class="hljs-keyword">while</span>(left &lt; right)<br>        &#123;<br>            <span class="hljs-type">int</span> middle = left + (right - left) &gt;&gt; <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">if</span> (nums[middle] &gt; target )<br>                right = middle;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[middle] &lt; target )<br>                left = middle + <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> middle;<br>        &#125;<br>        <span class="hljs-keyword">return</span> right;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<p>谁知提交时一直在示例3（即输入数组为[1 3 5 6]，查询值target &#x3D; 7）卡bug，提示超时。。</p>
-<hr>
-<h1 id="原因分析："><a href="#原因分析：" class="headerlink" title="原因分析："></a>原因分析：</h1><p>原以为是区间边界条件设置不当，反复检查，手动演算，脑袋想破了也觉得没问题。。</p>
-<p>无奈debug，发现执行这一句后，middle一值变化很奇怪。。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> middle = left + (right - left) &gt;&gt; <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+                <div class="note note-success">
+            <p>前言：本文章将在可视化环境下对cache工作原理进行演示实验，通过下面三个实验，读者应能：</p><ol><li>理解cache三种访问模式（直连、两路相连、全连）的工作原理；</li><li>学会计算命中率（hit rate），并理解各个参数（循环次数、步长、cache size等）如何影响hit rate；</li><li>理解不同的cache策略（回写、直写、LRU）对hit rate的影响；</li><li>知道如何优化代码，以实现更高的hit rate</li></ol><p>实验来源：<a target="_blank" rel="noopener" href="https://inst.eecs.berkeley.edu/~cs61c/su20/labs/lab07/">CS61C（20-SUMMER）- lab 7</a></p><p>可视化平台：<a target="_blank" rel="noopener" href="https://venus.cs61c.org/">venus</a></p>
+          </div>
 
-<p>突然虎躯一震，意识到可能是运算符优先级一问题，速google之，果然！</p>
-<p><img src="https://s2.loli.net/2023/04/13/ildhp5643oy9vXw.png" srcset="/img/loading.gif" lazyload></p>
-<p><em><strong>原来加减符的优先级是要高于位运算符的！</strong></em><br>一验证发现也的确如此<br><img src="https://s2.loli.net/2023/04/13/r8KHytNjmulQXIv.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="https://s2.loli.net/2023/04/13/pCmWrFxzQE8AY1T.png" srcset="/img/loading.gif" lazyload></p>
-<hr>
-<h1 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h1><p>加个括号即可</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> middle = left +( (right - left) &gt;&gt; <span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure>
-<p>问题解决，顺利通关！</p>
-<p><img src="https://s2.loli.net/2023/04/13/vtzFBo3YmZqg4XV.png" srcset="/img/loading.gif" lazyload></p>
-<hr>
-<h1 id="总结反思："><a href="#总结反思：" class="headerlink" title="总结反思："></a>总结反思：</h1><ol>
-<li>善于使用括号，尤其是主观上希望某个式子部分先运算时。</li>
-<li>老老实实用乘除得了，别整些什么花里胡哨trick。。代码省下几毫秒，debug多花几十分钟。。</li>
-</ol>
+
+
+<div class="note note-warning">
+            <p>PS. 完整的题目和描述请参考<a target="_blank" rel="noopener" href="https://inst.eecs.berkeley.edu/~cs61c/su20/labs/lab07/">CS61C（20-SUMMER）- lab 7</a>！下述所有分析仅相当于是实验答案，对题目本身不再赘述😪</p>
+          </div>
+
+
+
+<p><strong>汇编对应的C代码：</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">int</span> array[];  <span class="hljs-comment">//Assume sizeof(int) == 4</span><br><span class="hljs-keyword">for</span> (k = <span class="hljs-number">0</span>; k &lt; repcount; k++) &#123;		<span class="hljs-comment">// repeat repcount times</span><br>  <span class="hljs-keyword">for</span> (index = <span class="hljs-number">0</span>; index &lt; arraysize; index += stepsize) &#123;<br>    <span class="hljs-keyword">if</span>(option==<span class="hljs-number">0</span>)<br>      array[index] = <span class="hljs-number">0</span>;			<span class="hljs-comment">// Option 0: One cache access - write</span><br>    <span class="hljs-keyword">else</span><br>      array[index] = array[index] + <span class="hljs-number">1</span>;	<br>			<span class="hljs-comment">// Option 1: Two cache accesses - read AND write</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>实验一：直接映射</strong></p>
+<p>参数设置为：</p>
+<ul>
+<li>Array Size (a0): 128 (bytes)，即32个int</li>
+<li>Step Size (a1): 8</li>
+<li>Rep Count (a2): 1</li>
+<li>Option (a3): 0</li>
+<li>cache line设为8byte，共4个line</li>
+<li>策略为direct map + LRU</li>
+</ul>
+<p>手动分析，一次for循环中，要访问array[0、8、16、24]这4个元素，访问array[0]时，cache miss（此时cache中还没东西），于是从memory中把array[0、1]都放进来；但下一次访问array[8]时仍然会miss，这么一路下来cache access为4，hit rate为0</p>
+<p><img src="https://s2.loli.net/2023/04/14/WzSZARV1gETyI5C.png" srcset="/img/loading.gif" lazyload></p>
+<p>经验证确实如此，注意为啥只在cache0上操作捏？</p>
+<p><img src="https://s2.loli.net/2023/04/14/lY2BUCygoJn4qvG.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>看图就清楚了：index 2bit，offset 3bit。访问的是array[0、8、16、24]这几个元素，地址为0、32、64、96，其二进制的index一样的，都是对应line0</p>
+<p>那么同理，我们把stepsize改成4、2，hit rate始终都是0;</p>
+<p>改成1则hit rate&#x3D;50%</p>
+<p><img src="https://s2.loli.net/2023/04/14/LqTQDVnlOGaXjrc.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p><strong>实验二：4路映射</strong></p>
+<p>参数设置为：</p>
+<ul>
+<li>Array Size (a0): 256(bytes)，即64个int</li>
+<li>Step Size (a1): 2</li>
+<li>Rep Count (a2): 1</li>
+<li>Option (a3): 1</li>
+<li>cache line设为16byte，共16个line</li>
+<li>策略为4 way set associative + LRU</li>
+</ul>
+<p><img src="https://s2.loli.net/2023/04/14/Daexf5wv9JUN3jp.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>手动分析hit rate &#x3D; 0.75，经验证确实如此</p>
+<p><img src="https://s2.loli.net/2023/04/14/s9TJvIlmoUVYHQX.png" srcset="/img/loading.gif" lazyload></p>
+<p>进一步思考：那把repcount设为2，hit rate还是0.75吗？</p>
+<p>显然不是，因为第一遍for把所有cache line都填满了（整个array[]正好全装进去了！），所以后续每次cache access都会命中；hit rate &#x3D; （48+64）&#x2F;（2*64） &#x3D; 0.875</p>
+<p><img src="https://s2.loli.net/2023/04/14/5vKhocQJH1t3V7u.png" srcset="/img/loading.gif" lazyload></p>
+<p>repcount设为100时，hit rate就很接近于100%了（这其实也是映证了cache的基本原理，时空局部性，即数据重复度越高，cache越管用）</p>
+<p><img src="https://s2.loli.net/2023/04/14/S9wBezDrEpVi1vf.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>实验三：两级cache</strong></p>
+<p>参数设置为：</p>
+<ul>
+<li>Array Size (a0): 128(bytes)，即32个int</li>
+<li>Step Size (a1): 1</li>
+<li>Rep Count (a2): 1</li>
+<li>Option (a3): 0</li>
+</ul>
+<p>L1 cache：</p>
+<ul>
+<li>cache line设为8byte，共8个line</li>
+<li>策略为direct map + LRU</li>
+</ul>
+<p>L2 cache：</p>
+<ul>
+<li>cache line设为8byte，共16个line</li>
+<li>策略为direct map + LRU</li>
+</ul>
+<p><img src="https://s2.loli.net/2023/04/14/5DNjmzHWGcyhRis.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://s2.loli.net/2023/04/14/zygfL8HXFeiOMuk.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>解释：</strong></p>
+<p>L1 hit rate 50%不解释，同实验一；</p>
+<p>L2为啥是0%捏？ 其实想想那个过程就清楚了：找array[0]的时候，L1、L2都miss，然后从memory中把array[0、1]拿出来，接下来访问array[1]的时候在L1里就直接找到了，根本不会去访问L2，所以L2一共也就会访问16次，次次miss</p>
+<p><strong>Q：</strong>改变哪个参数会让L1命中率不变且L2命中率增加？</p>
+<p><strong>A：</strong>rep count。因为增加for重复次数时，L1中始终只装了一半的array，永远都是第一个元素miss、第二个hit；而L2 cache size为128bytes，刚好能把整个数组装下，所以rep count越大，L2的hit rate越接近于100%<br>$$</p>
+<p>$$</p>
 
                 
               </div>
@@ -380,11 +438,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>
+        <a href="/tags/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">#体系结构</a>
       
-        <a href="/tags/leetcode/">#leetcode</a>
-      
-        <a href="/tags/bug/">#bug</a>
+        <a href="/tags/cache/">#cache</a>
       
     </div>
   
@@ -396,8 +452,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>记位运算符(＞＞)使用不当引起的一次bug</div>
-      <div>https://qlhhahaha.github.io/2023/04/13/记位运算符(＞＞)使用不当引起的一次bug/</div>
+      <div>一个典型的cache工作原理演示实验</div>
+      <div>https://qlhhahaha.github.io/2023/04/14/一个典型的cache演示实验/</div>
     </div>
     <div class="license-meta">
       
@@ -409,7 +465,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年4月13日</div>
+          <div>2023年4月14日</div>
         </div>
       
       
@@ -441,15 +497,21 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/04/13/%E5%8D%A0%E4%B8%AA%E5%9D%912/" title="分类占坑2">
+                      <a href="/2023/04/14/%E3%80%8ACS61C%E7%AC%94%E8%AE%B0%E3%80%8B/" title="《CS61C笔记》">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">分类占坑2</span>
+                        <span class="hidden-mobile">《CS61C笔记》</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2023/04/13/%E3%80%8A%E6%9C%80%E4%BC%98%E5%8C%96%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95%EF%BC%88%E6%96%87%E5%86%8D%E6%96%87%EF%BC%89%E7%AC%94%E8%AE%B0%E3%80%8B/" title="最优化计算方法（文再文）笔记">
+                        <span class="hidden-mobile">最优化计算方法（文再文）笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
