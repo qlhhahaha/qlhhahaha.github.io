@@ -1,0 +1,1169 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="qlhhahaha">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="《EE364A笔记》Lecture_1 Introduction 最小二乘问题    有解析解：$x^*&#x3D;(A^TA)^{-1}A^Tb$ 现已有成熟方法和软件来解决最小二乘问题   线性规划问题    没有解析解 现已有成熟方法和软件来解决线性规划问题   凸优化问题   ​	其中目标函数 f0 和约束函数 fi 都是凸的，即满足：  Lecture_2 Convex sets一、凸包">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EE364A笔记">
+<meta property="og:url" content="https://qlhhahaha.github.io/2023/06/14/%E3%80%8AEE364A%E7%AC%94%E8%AE%B0%E3%80%8B/index.html">
+<meta property="og:site_name" content="钱力晖的小站">
+<meta property="og:description" content="《EE364A笔记》Lecture_1 Introduction 最小二乘问题    有解析解：$x^*&#x3D;(A^TA)^{-1}A^Tb$ 现已有成熟方法和软件来解决最小二乘问题   线性规划问题    没有解析解 现已有成熟方法和软件来解决线性规划问题   凸优化问题   ​	其中目标函数 f0 和约束函数 fi 都是凸的，即满足：  Lecture_2 Convex sets一、凸包">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/6hporxeNmGwjKbC.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/Ty8cbCUN71uZdYv.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/UzswpgkhnlICyQf.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/OWtH2KeDRAimNac.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/RGnYNVfLv2zU1Zh.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/qIwAbr251N4MTV6.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/ZBbct6EWzUN5LQu.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/4tYHiAjksyeaL5D.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/KOfqJhre8BkpQtL.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/jqlZ5VfMLDPOIUc.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/omAJl7C1DT2RQWH.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/pgZPLbSGxHqQcVW.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/oN7xkeTLau813Iq.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/xU72RaZtkAoOp6s.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/M6ZID7QrkEmhdbV.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/GNf9QxmPc76VF4z.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/gavAucWLDYkzfhp.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/RhoVEv6rnT4g9W5.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/dmYERS9ArT4ockG.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/zpdoy2Ww67TD5Or.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/veWtf29I3QhjOD8.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/VnTWEzr49bo8uHa.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/u3QPtmK7WOAqjrY.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/yVwbc4Fizgvo6Hs.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/HVapvMDbdsgy8xm.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/XQI8zJFKjD4eNME.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/bfNtnDGL4EU3sd1.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/4L83i2favGyA9wQ.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/lyd6zVUIMFagND9.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/GNsDmbSezfZXlxK.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/3fhGcy8n92x6LBH.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/D4RoZHMqxLeYQgh.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/NaHJB97GxjZh1u5.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/WIP4YJpu8gRl2rH.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/6bZegP2RjIQMhKB.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/Ec1fbjwuSgXpRno.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/HOyYXrIz5w9Bnba.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/c13xleTfoOuFUPB.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/ibavpBdZtWIGM9U.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/icf9kDuy5ATP4v3.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/jSk2PFMpO6194Bc.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/aLej2nqWCifJ9xI.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/weIWRO76KdrNubG.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/u7foyTsC2RGOhxt.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/wWBtCq4ouKRQpf8.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/zpAnhSduUiymxsj.png">
+<meta property="og:image" content="c:/Users/qlhhahaha/Pictures/Untitled.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/yhokBVYK4SmZ7tv.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/9UpaeJWEyI3O5QF.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/2cwMjJrspdaETqg.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/jaecJsrBzb4qm2I.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/noNjm1WsgJ9lSaF.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/GCusPihe2NI9qVo.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/IyCaHxuVe9DgzlO.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/jaecJsrBzb4qm2I.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/JtYwfujRWzypMXd.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/VjD9yaUTbcBxd2E.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/phw6qliF8BzTAuO.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/14/odX7Gv6bLif8Vm9.png">
+<meta property="article:published_time" content="2023-06-13T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-06-14T11:33:34.652Z">
+<meta property="article:author" content="qlhhahaha">
+<meta property="article:tag" content="分布式">
+<meta property="article:tag" content="凸优化">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2023/06/14/6hporxeNmGwjKbC.png">
+  
+  
+  
+  <title>EE364A笔记 - 钱力晖的小站</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"qlhhahaha.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"kycRyikhVWmN4EpKW0iOTt4g-gzGzoHsz","app_key":"OZMV9Hx4pERwu1aLb0BkeQDH","server_url":"https://kycryikh.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>钱力晖的小站</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/message/">
+                <i class="iconfont icon-cliplist"></i>
+                <span>留言板</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友情链接</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://s2.loli.net/2023/04/14/PZzfdpVG8gKBeJk.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="EE364A笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-06-14 00:00" pubdate>
+          2023年6月14日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          35 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">EE364A笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="《EE364A笔记》"><a href="#《EE364A笔记》" class="headerlink" title="《EE364A笔记》"></a>《EE364A笔记》</h1><h1 id="Lecture-1-Introduction"><a href="#Lecture-1-Introduction" class="headerlink" title="Lecture_1 Introduction"></a>Lecture_1 Introduction</h1><ol>
+<li><strong>最小二乘问题</strong></li>
+</ol>
+<p><img src="https://s2.loli.net/2023/06/14/6hporxeNmGwjKbC.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<ul>
+<li>有解析解：$x^*&#x3D;(A^TA)^{-1}A^Tb$</li>
+<li>现已有成熟方法和软件来解决最小二乘问题</li>
+</ul>
+<ol start="2">
+<li><strong>线性规划问题</strong></li>
+</ol>
+<p><img src="https://s2.loli.net/2023/06/14/Ty8cbCUN71uZdYv.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<ul>
+<li>没有解析解</li>
+<li>现已有成熟方法和软件来解决线性规划问题</li>
+</ul>
+<ol start="3">
+<li><strong>凸优化问题</strong></li>
+</ol>
+<p><img src="https://s2.loli.net/2023/06/14/UzswpgkhnlICyQf.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​	其中目标函数 f0 和约束函数 fi 都是凸的，即满足：</p>
+<p><img src="https://s2.loli.net/2023/06/14/OWtH2KeDRAimNac.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<h1 id="Lecture-2-Convex-sets"><a href="#Lecture-2-Convex-sets" class="headerlink" title="Lecture_2 Convex sets"></a>Lecture_2 Convex sets</h1><h3 id="一、凸包与凸集"><a href="#一、凸包与凸集" class="headerlink" title="一、凸包与凸集"></a>一、凸包与凸集</h3><p>​	见<a href="https://qlhhahaha.github.io/2023/04/13/%E3%80%8A%E6%9C%80%E4%BC%98%E5%8C%96%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95%EF%BC%88%E6%96%87%E5%86%8D%E6%96%87%EF%BC%89%E7%AC%94%E8%AE%B0%E3%80%8B/#%E7%AC%AC%E4%BA%8C%E7%AB%A0%E3%80%81%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86">《最优化计算方法（文再文）笔记》</a></p>
+<h3 id="二、如何保证一个集合C的凸性"><a href="#二、如何保证一个集合C的凸性" class="headerlink" title="二、如何保证一个集合C的凸性"></a>二、如何保证一个集合C的凸性</h3><ol>
+<li><strong>使用定义</strong></li>
+</ol>
+<p><img src="https://s2.loli.net/2023/06/14/RGnYNVfLv2zU1Zh.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<ol start="2">
+<li><strong>证明C是由简单凸集经过以下操作得到：</strong></li>
+</ol>
+<ul>
+<li><p>​	<strong>相交：</strong>任意个数的凸集相交仍为凸集</p>
+<p><img src="https://s2.loli.net/2023/06/14/qIwAbr251N4MTV6.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+</li>
+</ul>
+<p>​		为什么说S是凸集捏？<br>​		首先cos是偶函数，所以 t 的范围简化为0到pi&#x2F;3，我们假设 t 为该范围中的某个定值；<br>​		定义子集$S_t&#x3D;{ x\in R^m  |   \left\vert p(t)\right\vert \le1 }$，即先固定 t ，<br>​		则此时$\left\vert p(t)\right\vert \le1$是两个半平面的交集（因为 p(t)是[cos t, cos 2t]和[x1, x2]的内积， 		$p(t) \le1$是个半平面， $p(t) \ge -1$也是个半平面 ），所以 St 为凸集<br>​		而$S&#x3D;\cap S_t ,t\in(0,\pi&#x2F;3)$，即为无数个凸集的交集，故 S 仍未凸集（见上右图）</p>
+<ul>
+<li><strong>仿射函数：</strong>凸集经仿射变换（缩放、平移、投影）仍是凸集</li>
+<li><strong>透视函数与线性分式函数</strong></li>
+</ul>
+<p>​		透视函数P：R^{n+1}\rightarrow R^n</p>
+<p><img src="https://s2.loli.net/2023/06/14/ZBbct6EWzUN5LQu.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		线性分式函数 f：R^{n}\rightarrow R^m</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/4tYHiAjksyeaL5D.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<h3 id="三、支撑超平面定理"><a href="#三、支撑超平面定理" class="headerlink" title="三、支撑超平面定理"></a>三、支撑超平面定理</h3><p>​	如果C是凸集，那么在其每一个边界点上都存在至少一个支撑超平面（几何意义是切线、切面）</p>
+<p>​	<div class="note note-warning">
+            <p>​	💡 PS. 支撑超平面不一定唯一，如矩形顶点处就有无数个超平面（因为边界突变）<br>​	</p>
+          </div></p>
+<h1 id="Lecture-3-Convex-functions"><a href="#Lecture-3-Convex-functions" class="headerlink" title="Lecture_3 Convex functions"></a>Lecture_3 Convex functions</h1><ol>
+<li><p><strong>常见凸函数</strong></p>
+<ul>
+<li><p>指数函数</p>
+</li>
+<li><p>幂函数：$x^\alpha,\alpha \ge1,or ,\alpha\le0$</p>
+</li>
+<li><p>熵函数：$xlogx$</p>
+</li>
+<li><p>所有的范数</p>
+</li>
+</ul>
+</li>
+<li><p><strong>拓展函数</strong></p>
+</li>
+</ol>
+<p><img src="https://s2.loli.net/2023/06/14/KOfqJhre8BkpQtL.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<ol start="3">
+<li><strong>上境图（epigraph）</strong></li>
+</ol>
+<p>​		<img src="https://s2.loli.net/2023/06/14/jqlZ5VfMLDPOIUc.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		f 为凸函数 $\ifff$ 的上境图为凸集</p>
+<ol start="4">
+<li><strong>共轭函数</strong></li>
+</ol>
+<p>​	<img src="https://s2.loli.net/2023/06/14/omAJl7C1DT2RQWH.png" srcset="/img/loading.gif" lazyload alt="Untitled" style="zoom:67%;" /></p>
+<p>​		$f^*$始终是凸函数（即使 f 不凸）</p>
+<p>​		举例：</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/pgZPLbSGxHqQcVW.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<ol start="5">
+<li><strong>拟凸函数（quasiconvex function）</strong></li>
+</ol>
+<p>​		定义：若 dom f 为凸集，且对任意的 α ，其下水平集<br>$$<br>S_\alpha&#x3D;{x\in domf | f(x) \le \alpha }<br>$$<br>​		<img src="https://s2.loli.net/2023/06/14/oN7xkeTLau813Iq.png" srcset="/img/loading.gif" lazyload alt="Untitled" style="zoom: 67%;" /></p>
+<h1 id="Lecture-4-Convex-optimization-problems"><a href="#Lecture-4-Convex-optimization-problems" class="headerlink" title="Lecture_4 Convex optimization problems"></a>Lecture_4 Convex optimization problems</h1><ol>
+<li><strong>标准形式</strong></li>
+</ol>
+<p>​		<img src="https://s2.loli.net/2023/06/14/xU72RaZtkAoOp6s.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<ol start="2">
+<li><strong>凸优化问题</strong></li>
+</ol>
+<p>​		<img src="https://s2.loli.net/2023/06/14/M6ZID7QrkEmhdbV.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		其中 fi(x) 都是凸的；等式约束是仿射的</p>
+<p>​		<div class="note note-warning">
+            <p>​		💡 PS. 凸优化问题的任何局部最优解都是全局最优解<br>​		</p>
+          </div></p>
+<ol start="3">
+<li><p><strong>一些常见的转换技巧</strong></p>
+<ul>
+<li><strong>消除等式约束</strong></li>
+</ul>
+<p> <img src="https://s2.loli.net/2023/06/14/GNf9QxmPc76VF4z.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p> ​			即先把 Ax&#x3D;b 解出来，再带到不等式约束中</p>
+<ul>
+<li><strong>引入等式约束</strong></li>
+</ul>
+<p> <img src="https://s2.loli.net/2023/06/14/gavAucWLDYkzfhp.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<ul>
+<li><strong>引入松弛变量</strong></li>
+</ul>
+</li>
+<li><p><strong>线性规划问题（Linear Program, LP）</strong></p>
+</li>
+</ol>
+<p><img src="https://s2.loli.net/2023/06/14/RhoVEv6rnT4g9W5.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		几何解释为，线性规划的可行域是多面体P，该最优问题就是要在P上求仿射函数$c^Tx+d$的极小值</p>
+<p>​		<strong>举例：</strong></p>
+<p>​		一份健康的饮食包含m种不同的营养，每种至少需要b1,…,bm。我们可以从n种食物中选择非负的量x1，… ，		xn以构成一份食谱。单位第 j 种食品含有营养 i 的量为 aj，而价格为 cj。我们希望设计出一份最便宜的满足营		养需求的食谱。这一问题可以描述为线性规划</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/dmYERS9ArT4ockG.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<ol start="5">
+<li><strong>二次优化问题（Quadratic program，QP）</strong></li>
+</ol>
+<p>​		目标函数是凸二次型且约束函数为仿射</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/zpdoy2Ww67TD5Or.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		几何解释：可行集是多面体P，虚线为凸二次目标函数的等位线</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/veWtf29I3QhjOD8.png" srcset="/img/loading.gif" lazyload alt="Untitled" style="zoom:67%;" /></p>
+<p>​		线性规划是二次规划的特例（P取0时退化为线性规划）</p>
+<ol start="6">
+<li><strong>二次约束二次规划问题（QCQP）</strong></li>
+</ol>
+<p>​		<img src="https://s2.loli.net/2023/06/14/VnTWEzr49bo8uHa.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		在二次规划的基础上，若不等式约束条件也是凸二次型，则称之为QCQP</p>
+<ol start="7">
+<li><strong>二阶锥规划（Second order cone programming，SOCP）</strong></li>
+</ol>
+<p>​		<img src="https://s2.loli.net/2023/06/14/u3QPtmK7WOAqjrY.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		当 ci &#x3D; 0时，退化为一个QCQP问题</p>
+<h1 id="Lecture-5-Duality"><a href="#Lecture-5-Duality" class="headerlink" title="Lecture_5 Duality"></a>Lecture_5 Duality</h1><ol>
+<li><strong>Lagrange对偶函数</strong></li>
+</ol>
+<p>​		一个标准形式的问题（不要求是凸的）</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/yVwbc4Fizgvo6Hs.png" srcset="/img/loading.gif" lazyload alt="Untitled" style="zoom:67%;" /></p>
+<p>​		把它写成</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/HVapvMDbdsgy8xm.png" srcset="/img/loading.gif" lazyload alt="Untitled" style="zoom:67%;" /></p>
+<p>​		所谓的Lagrange对偶函数，就是去求它的下确界</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/XQI8zJFKjD4eNME.png" srcset="/img/loading.gif" lazyload alt="Untitled" style="zoom:80%;" /></p>
+<p>​		对于可行域内所有的$\tilde{x}$，皆有$p^* \ge g(\lambda,v)$，即$g(\lambda,v)$是原问题最优值的下界</p>
+<ol start="2">
+<li><strong>举例：线性方程组的最小二乘解</strong></li>
+</ol>
+<p>​		考虑问题：</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/bfNtnDGL4EU3sd1.png" srcset="/img/loading.gif" lazyload alt="Untitled" style="zoom:67%;" /></p>
+<p>​		其Lagrange函数为：</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/4L83i2favGyA9wQ.png" srcset="/img/loading.gif" lazyload alt="Untitled" style="zoom:67%;" /></p>
+<p>​		为得最小值，求其导数：</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/lyd6zVUIMFagND9.png" srcset="/img/loading.gif" lazyload alt="Untitled" style="zoom:67%;" /></p>
+<img src="https://s2.loli.net/2023/06/14/GNsDmbSezfZXlxK.png" srcset="/img/loading.gif" lazyload alt="Untitled" style="zoom:67%;" />
+
+<p>​		所以可得原问题最优解的下界为：</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/3fhGcy8n92x6LBH.png" srcset="/img/loading.gif" lazyload alt="Untitled" style="zoom:67%;" /></p>
+<ol start="3">
+<li><strong>Lagrange对偶问题</strong></li>
+</ol>
+<p>​		求Lagrange函数的最大值，也就是原问题的最好下界，这就是所谓的Lagrange对偶问题</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/D4RoZHMqxLeYQgh.png" srcset="/img/loading.gif" lazyload alt="Untitled" style="zoom:67%;" /></p>
+<p>​		<strong>举例：</strong></p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/NaHJB97GxjZh1u5.png" srcset="/img/loading.gif" lazyload alt="Untitled" style="zoom: 80%;" /></p>
+<p>​		其Lagrange函数为：</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/WIP4YJpu8gRl2rH.png" srcset="/img/loading.gif" lazyload alt="Untitled" style="zoom:80%;" /></p>
+<p>​		<div class="note note-warning">
+            <p>​		💡 PS. 注意：此时 x 的定义域是R，也就是说不用再去考虑 (x-2)(x-4)为负这个约束条件，因为Lagrange函数		本身就已经包含了这个条件<br>​		</p>
+          </div></p>
+<p>​		那么显而易见，对于这个以 λ 为自变量的二次函数，$\lambda \le -1$时下确界为 -∞ ;$\lambda &gt; -1$时，在$\tilde{x}&#x3D;3\lambda&#x2F;(1+\lambda)$处取最小值，即</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/6bZegP2RjIQMhKB.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		此时我们得到了所谓的Lagrange对偶问题：</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/Ec1fbjwuSgXpRno.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		容易验证得到此时的最优点为 λ&#x3D;2，最优值为5，和原问题一致（这是必然的，因为当 x 属于(2, 4)时不等式严		格成立，即满足Slater条件，且原问题是凸问题，那么强对偶性成立）</p>
+<p>​		<div class="note note-warning">
+            <p>​		💡 PS. 除了Slater条件之外，还有其它很多判断准则<br>​		</p>
+          </div></p>
+<ol start="4">
+<li><strong>强弱对偶性</strong></li>
+</ol>
+<p>​	Lagrange对偶问题的最优值用$d^*$表示</p>
+<ul>
+<li>弱对偶性指$d^* \le p^*$，弱对偶性始终满足（即使原问题不是凸的）</li>
+<li>强对偶性指$d^* &#x3D; p^*$，原问题是凸的时候通常（但不总是）满足强对偶性</li>
+</ul>
+<ol start="5">
+<li><strong>Slater约束准则</strong></li>
+</ol>
+<p>​		对于一个凸问题</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/HOyYXrIz5w9Bnba.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		如果存在一个点x \in intD（内点），使得f_i(x)&lt;0, and,Ax&#x3D;b（即不等式约束严格成立），则称之为满足Slater约束，此时强对偶性成立</p>
+<ol start="6">
+<li><strong>互补松弛性（Complementary slackness）</strong></li>
+</ol>
+<p>​		假设强对偶性成立，$x^*$是原问题最优解，$(\lambda^*,\nu^*)$是对偶问题的最优解</p>
+<p>​		则有：</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/c13xleTfoOuFUPB.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		得到结论：</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/ibavpBdZtWIGM9U.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		该结论就是所谓的互补松弛性</p>
+<ol start="7">
+<li><strong>KKT最优条件</strong></li>
+</ol>
+<p>​		<img src="https://s2.loli.net/2023/06/14/icf9kDuy5ATP4v3.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		对于一个凸问题来说，若某组$(\tilde{x},\tilde{\lambda},\tilde{\nu})$满足KKT条件，那它们就是最优解</p>
+<h1 id="Lecture-6-Approximation-and-fitting"><a href="#Lecture-6-Approximation-and-fitting" class="headerlink" title="Lecture_6 Approximation and fitting"></a>Lecture_6 Approximation and fitting</h1><ol>
+<li><strong>范数逼近</strong></li>
+</ol>
+<p>​		典型的范数逼近问题是具有以下形式的无约束问题：</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/jSk2PFMpO6194Bc.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		从<strong>逼近</strong>的角度进行解释：</p>
+<p>​		通过将 Ax 表示为$Ax&#x3D;x_1a_1+…+x_na_n$，其中 ai 为 A 的列，我们可以看出，范数逼近问题的目标是用 A 		的列的线性组合，尽可能准确地逼近或拟合向量 b</p>
+<ol start="2">
+<li><strong>最小二乘逼近</strong></li>
+</ol>
+<p>​		取范数为2，则原问题转换为：<br>$$<br>min ||Ax-b||_2^2<br>$$<br>​		将目标函数表示为凸二次函数：<br>$$<br>f(x)&#x3D;x^TA^TAx-2b^TAx+b^Tb<br>$$<br>​		求其导数有：<br>$$<br>\nabla f(x)&#x3D;2A^TAx-2A^Tb&#x3D;0<br>$$<br>​		即 x 满足：<br>$$<br>A^TAx&#x3D;A^Tb<br>$$<br>​		可得其唯一解$x&#x3D;(A^TA)^{-1}A^Tb$</p>
+<ol start="3">
+<li><strong>罚函数逼近</strong></li>
+</ol>
+<p>​		$l_p范数逼近问题的目标函数为：<br>$$<br>(|r_1|^p+\cdots+|r_m|^p)^{1&#x2F;p}<br>$$<br>​		其中 ri &#x3D; Ax - b ，称之为残差，所谓的范数逼近，就是要残差尽可能地小，那么我们可以把范数逼近问题转换		为以下形式：</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/aLej2nqWCifJ9xI.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		其中 Φ 称之为罚函数，我们通常将Φ设为一个对称的、非负的凸函数，则上述问题是一个凸优化问题</p>
+<p>​		常见的罚函数：</p>
+<ul>
+<li>二次罚函数$\phi(u)&#x3D;u^{2}$</li>
+<li>带死区的罚函数$\phi(u)&#x3D;\max{0,|u|-a}$</li>
+<li>对数罚函数$\phi(u)&#x3D;\begin{cases}-a^2\log(1-(u&#x2F;a)^2)&amp;|u|&lt;a\ \infty&amp;\text{otherwise}\end{cases}$</li>
+</ul>
+<img src="https://s2.loli.net/2023/06/14/weIWRO76KdrNubG.png" srcset="/img/loading.gif" lazyload alt="Untitled" style="zoom:67%;" />
+
+
+
+<ol start="4">
+<li><strong>正则化逼近</strong></li>
+</ol>
+<p>​		<img src="https://s2.loli.net/2023/06/14/u7foyTsC2RGOhxt.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		研究的是双目标优化问题，即同时让|Ax-b|和|x|尽可能地小，这在鲁棒逼近中可解释为：x 小的时候，Ax&#x3D;b对误差的鲁棒性更好</p>
+<ol start="5">
+<li><strong>信号重构问题</strong></li>
+</ol>
+<p>​		假设信号被加性噪声 v 污染，即<br>$$<br>x_{cor}&#x3D;x+v<br>$$<br>​		所谓<strong>信号重构</strong>，就是在给定受污染信号 xcor 的情况下，构建对原始信号 x 的估计值 $\hat{x}$，也叫<strong>光滑化</strong></p>
+<p>​		重构问题的一个简单形式是双准则问题</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/wWBtCq4ouKRQpf8.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		其中 Φ 是凸的，称为正则化函数或光滑目标。这个双准则问题，就是要寻求一个接近被污染信号并且光滑的		信号</p>
+<ul>
+<li>​		<strong>二次光滑</strong></li>
+</ul>
+<img src="https://s2.loli.net/2023/06/14/zpAnhSduUiymxsj.png" srcset="/img/loading.gif" lazyload alt="Untitled" style="zoom: 50%;" />
+
+<ul>
+<li>​		<strong>总变差重构</strong></li>
+</ul>
+<img src="C:/Users/qlhhahaha/Pictures/Untitled.png" srcset="/img/loading.gif" lazyload alt="Untitled"  />
+
+
+
+<ol start="6">
+<li><strong>鲁棒逼近</strong></li>
+</ol>
+<p>​		问题形式为，在 A 不确定的情况下，最可能地最小化$||Ax-b||$</p>
+<p>​		两种解决思路：</p>
+<ul>
+<li>随机：假设 A 是随机的，最小化$E||Ax-b||$</li>
+<li>最坏情况：求$min,sup||Ax-b||$</li>
+</ul>
+<h1 id="Lecture-10-Unconstrained-minimization"><a href="#Lecture-10-Unconstrained-minimization" class="headerlink" title="Lecture_10 Unconstrained minimization"></a>Lecture_10 Unconstrained minimization</h1><ol>
+<li><strong>定义</strong></li>
+</ol>
+<p>​		字面意思，没有约束条件的优化问题，我们假设 f 是可微凸函数，那么无约束优化问题其实就是去求梯度为零		的点</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/yhokBVYK4SmZ7tv.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<ol start="2">
+<li><strong>下降方法</strong></li>
+</ol>
+<p>​		即选择合适的搜索步长 t</p>
+<ul>
+<li>​		<strong>精确直线搜索</strong></li>
+</ul>
+<p>​		找到让函数值最小的那个步长 t，即<br>$$<br>t&#x3D;argmin_{s \ge 0}, f(x+s\Delta x)<br>$$<br>​		当目标函数形式简单，能求得解析解时可考虑使用这种方法</p>
+<ul>
+<li>​		<strong>回溯直线搜索</strong></li>
+</ul>
+<p>​		<img src="https://s2.loli.net/2023/06/14/9UpaeJWEyI3O5QF.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		基本思路是：先采用单位步长，若不满足条件，则不断缩小。</p>
+<p>​		满足条件时的几何意义：$f(x+t\Delta x)$落入两条虚线之间的范围</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/2cwMjJrspdaETqg.png" srcset="/img/loading.gif" lazyload alt="Untitled" style="zoom:67%;" /></p>
+<ol start="3">
+<li>其余内容参考<a href="https://qlhhahaha.github.io/2023/04/13/%E3%80%8A%E6%9C%80%E4%BC%98%E5%8C%96%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95%EF%BC%88%E6%96%87%E5%86%8D%E6%96%87%EF%BC%89%E7%AC%94%E8%AE%B0%E3%80%8B/#%E7%AC%AC%E5%9B%9B%E7%AB%A0%E3%80%81%E6%97%A0%E7%BA%A6%E6%9D%9F%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95">《最优化计算方法（文再文）笔记》</a></li>
+</ol>
+<h1 id="Lecture-11-Equality-constrained-minimization"><a href="#Lecture-11-Equality-constrained-minimization" class="headerlink" title="Lecture_11 Equality constrained minimization"></a>Lecture_11 Equality constrained minimization</h1><ol>
+<li><strong>定义</strong></li>
+</ol>
+<p>​		<img src="https://s2.loli.net/2023/06/14/jaecJsrBzb4qm2I.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		x* 为最优点的充要条件是：存在 v* 满足</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/noNjm1WsgJ9lSaF.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<ol start="2">
+<li><p><strong>等式约束二次规划</strong></p>
+<p><img src="https://s2.loli.net/2023/06/14/GCusPihe2NI9qVo.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+</li>
+</ol>
+<p>​		那么此时最优性条件为：<br>$$<br>Ax^*&#x3D;b,, Px^*+q+A^Tv^*&#x3D;0<br>$$<br>​		写成矩阵形式为：</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/IyCaHxuVe9DgzlO.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		称之为等式约束优化问题的<strong>KKT条件</strong></p>
+<p>​		</p>
+<ol start="3">
+<li><strong>等式约束的Newton方法</strong></li>
+</ol>
+<p>​		<img src="https://s2.loli.net/2023/06/14/jaecJsrBzb4qm2I.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		<strong>思路：</strong>二阶taylor展开转换为</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/JtYwfujRWzypMXd.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		即KKT条件为</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/VjD9yaUTbcBxd2E.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		最后求解出来的那个$\Delta x_{nt}$就是newton方向，$x+\Delta x_{nt}$是对原问题真正的最优解 x* 的一个很		好的估计</p>
+<p>​		</p>
+<p>​		另外，我们定义newton减量为：</p>
+<p><img src="https://s2.loli.net/2023/06/14/phw6qliF8BzTAuO.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>​		整个算法流程为：</p>
+<p>​		<img src="https://s2.loli.net/2023/06/14/odX7Gv6bLif8Vm9.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%A7%91%E7%A0%94%E5%8F%AA%E4%B8%BA%E6%8A%8A%E4%B8%9A%E6%AF%95/" class="category-chain-item">科研只为把业毕</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
+      
+        <a href="/tags/%E5%87%B8%E4%BC%98%E5%8C%96/">#凸优化</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>EE364A笔记</div>
+      <div>https://qlhhahaha.github.io/2023/06/14/《EE364A笔记》/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>qlhhahaha</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年6月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/14/%E3%80%8ACS106L%E7%AC%94%E8%AE%B0%E3%80%8B/" title="《CS106L笔记》">
+                        <span class="hidden-mobile">《CS106L笔记》</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-test-woad-six.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"placeholder":"你想对钱力晖说什么捏?","avatar":"retro","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[]},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
