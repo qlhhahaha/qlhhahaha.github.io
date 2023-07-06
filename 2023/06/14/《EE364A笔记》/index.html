@@ -83,7 +83,7 @@
 <meta property="og:image" content="https://s2.loli.net/2023/06/14/phw6qliF8BzTAuO.png">
 <meta property="og:image" content="https://s2.loli.net/2023/06/14/odX7Gv6bLif8Vm9.png">
 <meta property="article:published_time" content="2023-06-13T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-06-14T12:00:58.267Z">
+<meta property="article:modified_time" content="2023-07-06T07:11:32.187Z">
 <meta property="article:author" content="qlhhahaha">
 <meta property="article:tag" content="分布式">
 <meta property="article:tag" content="凸优化">
@@ -130,7 +130,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"qlhhahaha.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"kycRyikhVWmN4EpKW0iOTt4g-gzGzoHsz","app_key":"OZMV9Hx4pERwu1aLb0BkeQDH","server_url":"https://kycryikh.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    var CONFIG = {"hostname":"qlhhahaha.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"kycRyikhVWmN4EpKW0iOTt4g-gzGzoHsz","app_key":"OZMV9Hx4pERwu1aLb0BkeQDH","server_url":"https://kycryikh.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -144,7 +144,19 @@
   
 
   
-
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
   
 
   
@@ -370,8 +382,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">EE364A笔记</h1>
+            <h1 id="seo-header">EE364A笔记</h1>
             
             
               <div class="markdown-body">
@@ -596,7 +607,7 @@
 <ol start="3">
 <li><strong>罚函数逼近</strong></li>
 </ol>
-<p>​		$l_p范数逼近问题的目标函数为：<br>$$<br>(|r_1|^p+\cdots+|r_m|^p)^{1&#x2F;p}<br>$$<br>​		其中 ri &#x3D; Ax - b ，称之为残差，所谓的范数逼近，就是要残差尽可能地小，那么我们可以把范数逼近问题转换		为以下形式：</p>
+<p>​		$l_p$范数逼近问题的目标函数为：<br>$$<br>(|r_1|^p+\cdots+|r_m|^p)^{1&#x2F;p}<br>$$<br>​		其中 ri &#x3D; Ax - b ，称之为残差，所谓的范数逼近，就是要残差尽可能地小，那么我们可以把范数逼近问题转换为以下形式：</p>
 <p>​		<img src="https://s2.loli.net/2023/06/14/aLej2nqWCifJ9xI.png" srcset="/img/loading.gif" lazyload></p>
 <p>​		其中 Φ 称之为罚函数，我们通常将Φ设为一个对称的、非负的凸函数，则上述问题是一个凸优化问题</p>
 <p>​		常见的罚函数：</p>
@@ -616,11 +627,13 @@
 <li><strong>正则化逼近</strong></li>
 </ol>
 <p>​		<img src="https://s2.loli.net/2023/06/14/u7foyTsC2RGOhxt.png" srcset="/img/loading.gif" lazyload></p>
-<p>​		研究的是双目标优化问题，即同时让|Ax-b|和|x|尽可能地小，这在鲁棒逼近中可解释为：x 小的时候，Ax&#x3D;b对误差的鲁棒性更好</p>
+<p>​		研究的是双目标优化问题，即同时让|Ax-b|和|x|尽可能地小，这在鲁棒逼近中可解释为：x 较小时Ax&#x3D;b对误差的鲁棒性更好</p>
 <ol start="5">
-<li><strong>信号重构问题</strong></li>
+<li><p><strong>信号重构问题</strong></p>
+<p> 假设信号被加性噪声 v 污染，即</p>
+</li>
 </ol>
-<p>​		假设信号被加性噪声 v 污染，即<br>$$<br>x_{cor}&#x3D;x+v<br>$$<br>​		所谓<strong>信号重构</strong>，就是在给定受污染信号 xcor 的情况下，构建对原始信号 x 的估计值 $\hat{x}$，也叫<strong>光滑化</strong></p>
+<p>$$<br>x_{cor}&#x3D;x+v<br>$$<br>​		所谓<strong>信号重构</strong>，就是在给定受污染信号 xcor 的情况下，构建对原始信号 x 的估计值 $\hat{x}$，也叫<strong>光滑化</strong></p>
 <p>​		重构问题的一个简单形式是双准则问题</p>
 <p>​		<img src="https://s2.loli.net/2023/06/14/wWBtCq4ouKRQpf8.png" srcset="/img/loading.gif" lazyload></p>
 <p>​		其中 Φ 是凸的，称为正则化函数或光滑目标。这个双准则问题，就是要寻求一个接近被污染信号并且光滑的		信号</p>
@@ -661,7 +674,7 @@
 <ul>
 <li>​		<strong>回溯直线搜索</strong></li>
 </ul>
-<p>​		<img src="https://s2.loli.net/2023/06/14/9UpaeJWEyI3O5QF.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://s2.loli.net/2023/06/14/9UpaeJWEyI3O5QF.png" srcset="/img/loading.gif" lazyload></p>
 <p>​		基本思路是：先采用单位步长，若不满足条件，则不断缩小。</p>
 <p>​		满足条件时的几何意义：$f(x+t\Delta x)$落入两条虚线之间的范围</p>
 <p>​		<img src="https://s2.loli.net/2023/06/14/2cwMjJrspdaETqg.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
@@ -679,7 +692,7 @@
 <p><img src="https://s2.loli.net/2023/06/14/GCusPihe2NI9qVo.png" srcset="/img/loading.gif" lazyload></p>
 </li>
 </ol>
-<p>​		那么此时最优性条件为：<br>$$<br>Ax^*&#x3D;b,, Px^*+q+A^Tv^*&#x3D;0<br>$$<br>​		写成矩阵形式为：</p>
+<p>​		那么此时最优性条件为：<br>$$<br>Ax^*&#x3D;b, Px^*+q+A^Tv^*&#x3D;0<br>$$<br>​		写成矩阵形式为：</p>
 <p>​		<img src="https://s2.loli.net/2023/06/14/IyCaHxuVe9DgzlO.png" srcset="/img/loading.gif" lazyload></p>
 <p>​		称之为等式约束优化问题的<strong>KKT条件</strong></p>
 <p>​		</p>
@@ -730,9 +743,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">#分布式</a>
+        <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" class="print-no-link">#分布式</a>
       
-        <a href="/tags/%E5%87%B8%E4%BC%98%E5%8C%96/">#凸优化</a>
+        <a href="/tags/%E5%87%B8%E4%BC%98%E5%8C%96/" class="print-no-link">#凸优化</a>
       
     </div>
   
@@ -768,7 +781,7 @@
             
               
               
-                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
                   <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-by"></i>
                   </span>
@@ -812,8 +825,8 @@
   <div id="waline"></div>
   <script type="text/javascript">
     Fluid.utils.loadComments('#waline', function() {
-      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
-      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+      Fluid.utils.createCssLink('https://cdn.staticfile.org/waline/2.15.5/waline.min.css')
+      Fluid.utils.createScript('https://cdn.staticfile.org/waline/2.15.5/waline.min.js', function() {
         var options = Object.assign(
           {"serverURL":"https://waline-test-woad-six.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"placeholder":"你想对钱力晖说什么捏?","avatar":"retro","highlight":true,"avatarCDN":"","avatarForce":false,"requiredFields":[]},
           {
@@ -984,7 +997,7 @@
   </script>
 
 
-<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
 <script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
@@ -1017,7 +1030,7 @@
 
   
 <script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
     var toc = jQuery('#toc');
     if (toc.length === 0 || !window.tocbot) { return; }
     var boardCtn = jQuery('#board-ctn');
