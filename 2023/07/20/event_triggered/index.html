@@ -16,30 +16,28 @@
   <meta name="author" content="qlhhahaha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="问题描述今天刷leetcode时遇到个死活也想不通的bug 原题很简单，线性数组插值问题，暴力遍历和二分法都可以做  不假思索用区间左闭右开的二分法，三下五除二就整了出来，胸有成竹😋 12345678910111213141516class Solution &amp;#123;public:    int searchInsert(vector&lt;int&gt;&amp; nums, int ta">
+    <meta name="description" content="Paper 1：Event-Triggered Real-Time Scheduling of Stabilizing Control Tasks一、motivation​		传统的固定时间周期的采样方式缺乏严格量化证明（时间周期为多少合适？少了不准确，多了浪费资源），而在微型处理器上又希望能尽可能节约计算资源，	所以考虑将周期采样转换为非周期采样，采样时间由某个“事件”来触发。 二、预备知识 $">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记位运算符(＞＞)使用不当引起的一次bug">
-<meta property="og:url" content="https://qlhhahaha.github.io/2023/04/13/%E8%AE%B0%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6(%EF%BC%9E%EF%BC%9E)%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%BD%93%E5%BC%95%E8%B5%B7%E7%9A%84%E4%B8%80%E6%AC%A1bug/index.html">
+<meta property="og:title" content="event-triggered系列论文学习">
+<meta property="og:url" content="https://qlhhahaha.github.io/2023/07/20/event_triggered/index.html">
 <meta property="og:site_name" content="钱力晖的小站">
-<meta property="og:description" content="问题描述今天刷leetcode时遇到个死活也想不通的bug 原题很简单，线性数组插值问题，暴力遍历和二分法都可以做  不假思索用区间左闭右开的二分法，三下五除二就整了出来，胸有成竹😋 12345678910111213141516class Solution &amp;#123;public:    int searchInsert(vector&lt;int&gt;&amp; nums, int ta">
+<meta property="og:description" content="Paper 1：Event-Triggered Real-Time Scheduling of Stabilizing Control Tasks一、motivation​		传统的固定时间周期的采样方式缺乏严格量化证明（时间周期为多少合适？少了不准确，多了浪费资源），而在微型处理器上又希望能尽可能节约计算资源，	所以考虑将周期采样转换为非周期采样，采样时间由某个“事件”来触发。 二、预备知识 $">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2023/04/13/ifSOReA2dapUFsh.png">
-<meta property="og:image" content="https://s2.loli.net/2023/04/13/ildhp5643oy9vXw.png">
-<meta property="og:image" content="https://s2.loli.net/2023/04/13/r8KHytNjmulQXIv.png">
-<meta property="og:image" content="https://s2.loli.net/2023/04/13/pCmWrFxzQE8AY1T.png">
-<meta property="og:image" content="https://s2.loli.net/2023/04/13/vtzFBo3YmZqg4XV.png">
-<meta property="article:published_time" content="2023-04-12T16:00:00.000Z">
+<meta property="og:image" content="https://s2.loli.net/2023/07/20/S6gNBRb1uwmIx2j.png">
+<meta property="og:image" content="https://s2.loli.net/2023/07/20/5dLwEYT3qFBMvit.png">
+<meta property="og:image" content="https://s2.loli.net/2023/07/20/6xms4BwDbjktp5T.png">
+<meta property="og:image" content="https://s2.loli.net/2023/07/20/q5raNL71SfctwA2.png">
+<meta property="article:published_time" content="2023-07-19T16:00:00.000Z">
 <meta property="article:modified_time" content="2023-07-20T15:18:27.125Z">
 <meta property="article:author" content="qlhhahaha">
-<meta property="article:tag" content="算法">
-<meta property="article:tag" content="leetcode">
-<meta property="article:tag" content="bug">
+<meta property="article:tag" content="协同控制">
+<meta property="article:tag" content="事件触发">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2023/04/13/ifSOReA2dapUFsh.png">
+<meta name="twitter:image" content="https://s2.loli.net/2023/07/20/S6gNBRb1uwmIx2j.png">
   
   
   
-  <title>记位运算符(＞＞)使用不当引起的一次bug - 钱力晖的小站</title>
+  <title>event-triggered系列论文学习 - 钱力晖的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -258,7 +256,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="记位运算符(＞＞)使用不当引起的一次bug"></span>
+            <span id="subtitle" data-typed-text="event-triggered系列论文学习"></span>
           
         </div>
 
@@ -269,8 +267,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-04-13 00:00" pubdate>
-          2023年4月13日 凌晨
+        <time datetime="2023-07-20 00:00" pubdate>
+          2023年7月20日 凌晨
         </time>
       </span>
     
@@ -281,7 +279,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          788 字
+          3.5k 字
         
       </span>
     
@@ -292,7 +290,7 @@
         
         
         
-          7 分钟
+          30 分钟
         
       </span>
     
@@ -329,35 +327,45 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">记位运算符(＞＞)使用不当引起的一次bug</h1>
+            <h1 id="seo-header">event-triggered系列论文学习</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>今天刷leetcode时遇到个死活也想不通的bug</p>
-<p>原题很简单，线性数组插值问题，暴力遍历和二分法都可以做</p>
-<p> <img src="https://s2.loli.net/2023/04/13/ifSOReA2dapUFsh.png" srcset="/img/loading.gif" lazyload><br>不假思索用区间左闭右开的二分法，三下五除二就整了出来，胸有成竹😋</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br>public:<br>    <span class="hljs-type">int</span> <span class="hljs-title function_">searchInsert</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;&amp; nums, <span class="hljs-type">int</span> target)</span> &#123;<br>        <span class="hljs-type">int</span> left = <span class="hljs-number">0</span>, right = nums.size();<br>        <span class="hljs-keyword">while</span>(left &lt; right)<br>        &#123;<br>            <span class="hljs-type">int</span> middle = left + (right - left) &gt;&gt; <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">if</span> (nums[middle] &gt; target )<br>                right = middle;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (nums[middle] &lt; target )<br>                left = middle + <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> middle;<br>        &#125;<br>        <span class="hljs-keyword">return</span> right;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
-<p>谁知提交时一直在示例3（即输入数组为[1 3 5 6]，查询值target &#x3D; 7）卡bug，提示超时。。</p>
-<hr>
-<h1 id="原因分析："><a href="#原因分析：" class="headerlink" title="原因分析："></a>原因分析：</h1><p>原以为是区间边界条件设置不当，反复检查，手动演算，脑袋想破了也觉得没问题。。</p>
-<p>无奈debug，发现执行这一句后，middle一值变化很奇怪。。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> middle = left + (right - left) &gt;&gt; <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
-
-<p>突然虎躯一震，意识到可能是运算符优先级一问题，速google之，果然！</p>
-<p><img src="https://s2.loli.net/2023/04/13/ildhp5643oy9vXw.png" srcset="/img/loading.gif" lazyload></p>
-<p><em><strong>原来加减符的优先级是要高于位运算符的！</strong></em><br>一验证发现也的确如此<br><img src="https://s2.loli.net/2023/04/13/r8KHytNjmulQXIv.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="https://s2.loli.net/2023/04/13/pCmWrFxzQE8AY1T.png" srcset="/img/loading.gif" lazyload></p>
-<hr>
-<h1 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h1><p>加个括号即可</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> middle = left +( (right - left) &gt;&gt; <span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure>
-<p>问题解决，顺利通关！</p>
-<p><img src="https://s2.loli.net/2023/04/13/vtzFBo3YmZqg4XV.png" srcset="/img/loading.gif" lazyload></p>
-<hr>
-<h1 id="总结反思："><a href="#总结反思：" class="headerlink" title="总结反思："></a>总结反思：</h1><ol>
-<li>善于使用括号，尤其是主观上希望某个式子部分先运算时。</li>
-<li>老老实实用乘除得了，别整些什么花里胡哨trick。。代码省下几毫秒，debug多花几十分钟。。</li>
+                <h1 id="Paper-1：Event-Triggered-Real-Time-Scheduling-of-Stabilizing-Control-Tasks"><a href="#Paper-1：Event-Triggered-Real-Time-Scheduling-of-Stabilizing-Control-Tasks" class="headerlink" title="Paper 1：Event-Triggered Real-Time Scheduling of Stabilizing Control Tasks"></a>Paper 1：Event-Triggered Real-Time Scheduling of Stabilizing Control Tasks</h1><h3 id="一、motivation"><a href="#一、motivation" class="headerlink" title="一、motivation"></a>一、motivation</h3><p>​		传统的固定时间周期的采样方式缺乏严格量化证明（时间周期为多少合适？少了不准确，多了浪费资源），而在微型处理器上又希望能尽可能节约计算资源，	所以考虑将周期采样转换为非周期采样，<strong>采样时间由某个“事件”来触发</strong>。</p>
+<h3 id="二、预备知识"><a href="#二、预备知识" class="headerlink" title="二、预备知识"></a>二、预备知识</h3><ol>
+<li><strong>$k$类函数、$k_\infty$类函数</strong></li>
 </ol>
+<p>​		如果连续函数$\alpha:[0,a) \rightarrow [0,\infty)$严格递增，且$\alpha(0)&#x3D;0$，则$\alpha$属于$k$类函数；更进一步地，如果$a&#x3D;\infty$，当$r\rightarrow \infty$时，$\alpha(r)\rightarrow\infty$，那么$\alpha$属于$k_\infty$类函数</p>
+<ol start="2">
+<li><p><strong>问题描述</strong></p>
+<p> 控制系统：$\dot x&#x3D;f(x,u)$</p>
+<p> 反馈控制：$u&#x3D;k(x)$</p>
+<p> 恒定控制：$t\in[t_i+\Delta,t_{i+1}+\Delta]\Longrightarrow u(t)&#x3D;u(t_i+\Delta)$（Δ是现实中的额外耗时，IO读取、计算耗时之类的）</p>
+<p> 测量误差：$t\in[t_i+\Delta,t_{i+1}+\Delta]\Longrightarrow e(t)&#x3D;x(t_i)-x(t)$</p>
+</li>
+<li><p><strong>ISS Lyapunov函数</strong></p>
+<p> <img src="https://s2.loli.net/2023/07/20/S6gNBRb1uwmIx2j.png" srcset="/img/loading.gif" lazyload alt="image-20230720142040614"></p>
+<p> 其中$\underline\alpha,\alpha,\overline\alpha,\gamma$都是$k_\infty$类函数</p>
+</li>
+</ol>
+<h3 id="三、event-triggered-机制"><a href="#三、event-triggered-机制" class="headerlink" title="三、event-triggered 机制"></a>三、event-triggered 机制</h3><ol>
+<li><p>如果我们设置有关误差的约束条件为：<br> $$<br> \gamma(|e|)\leq\sigma\alpha(|x|),\quad\sigma&gt;0\quad\quad(8)<br> $$<br> 将其代入公式 (5) 可得：<br> $$<br> \frac{\partial V}{\partial x}f(x,k(x+e))\leq(\sigma-1)\alpha(|x|)<br> $$<br> 那么此时我们只需要让$\sigma&lt;1$就可保证Lyapunov函数 V 是递减的。因此，<strong>我们可以将事件触发规则设置为下式：</strong><br> $$<br> \gamma(|e|)&#x3D;\sigma\alpha(|x|)\quad\quad(9)<br> $$</p>
+</li>
+<li><p>在设置好触发规则之后，一个相应的问题是：触发时间由 (9) 隐式定义，那如何保证两次触发时间不会无限接近，从而造成芝诺行为呢？</p>
+<p> 原文通过Lipschitz条件证明了只要时延Δ足够小，则最小执行间隔时间存在，<strong>也就保证了$t_i-t_{i+1}$的下界，即$t_i-t_{i+1}\ge\tau,\tau\in\mathbb{R}^{+}$</strong></p>
+<p> 具体证明过程略</p>
+<p> <img src="https://s2.loli.net/2023/07/20/5dLwEYT3qFBMvit.png" srcset="/img/loading.gif" lazyload alt="image-20230720165453677"></p>
+</li>
+<li><p><strong>仿真代码</strong><br> $$<br> \left[\begin{matrix}\dot{x}_1\\dot{x}_2\end{matrix}\right]&#x3D;\left[\begin{matrix}0&amp;1\-2&amp;3\end{matrix}\right]\left[\begin{matrix}x_1\x_2\end{matrix}\right]+\left[\begin{matrix}0\1\end{matrix}\right]u\<br> V&#x3D;x^TPx\<br> \begin{aligned}\partial V&#x2F;\partial x(Ax+BKx)&#x3D;-x^{T}Qx\end{aligned}\<br> P&#x3D;\left[\begin{array}{cc}1&amp;\frac{1}{4}\\frac{1}{4}&amp;1\end{array}\right],\quad Q&#x3D;\left[\begin{array}{cc}\frac{1}{2}&amp;\frac{1}{4}\\frac{1}{4}&amp;\frac{3}{2}\end{array}\right]\<br> $$<br> 把测量误差带入表达式，我们有：<br> $$<br> \frac{\partial V}{\partial x}\Big(Ax+BKx+BKe\Big)\leq-a|x|^2+b|e|x|<br> $$<br> 其中<br> $$<br> a&#x3D;\lambda_m(Q)&gt;0.44\quad b&#x3D;|K^TB^TP+PBK|&#x3D;8<br> $$<br> $\lambda_m(Q)$表示 Q 的最小特征值，$\sigma b$应比0.44更小，算出来$\sigma$的上界约为0.05，我们可以取$\sigma’&#x3D;0.03$</p>
+ <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><code class="hljs matlab"><span class="hljs-comment">% Tabuada, P. (2007). </span><br><span class="hljs-comment">% Event-triggered real-time scheduling of stabilizing control tasks.</span><br><span class="hljs-comment">% IEEE Transactions on Automatic Control,52(9), 1680-1685.</span><br><br><br>clc;        <br>clear;      <br>close all;<br><br><span class="hljs-comment">%% system define</span><br>A = [<span class="hljs-number">0</span> <span class="hljs-number">1</span>; <span class="hljs-number">-2</span> <span class="hljs-number">3</span>];<br>B = [<span class="hljs-number">0</span>; <span class="hljs-number">1</span>];<br>K = [<span class="hljs-number">1</span> <span class="hljs-number">-4</span>];<br>P = [<span class="hljs-number">1</span> <span class="hljs-number">0.25</span>; <span class="hljs-number">0.25</span> <span class="hljs-number">1</span> ];<br>Q = [<span class="hljs-number">0.5</span> <span class="hljs-number">0.25</span>; <span class="hljs-number">0.25</span> <span class="hljs-number">1.5</span>];<br>x0 = [<span class="hljs-number">0.5</span> <span class="hljs-number">0.5</span>]&#x27;;<br>dt = <span class="hljs-number">0.001</span>;<br>trigger_count = <span class="hljs-number">0</span>;<br><br><span class="hljs-comment">% sigma是上界，sigma_prime应小于sigma</span><br><span class="hljs-comment">% 原论文中有解释</span><br>sigma_prime = <span class="hljs-number">0.03</span>;<br>sigma = <span class="hljs-number">0.05</span>;<br><br><span class="hljs-comment">%% simulation</span><br>x_buffer = [];<br>u_buffer = [];<br>error_buffer = [];<br>error_trigger = [];<br>error_upper_bound = [];<br><br>x = x0;         <br>u = K*x0;    <br>syms s<br><br><span class="hljs-comment">% 定常连续系统方程的离散化</span><br><span class="hljs-comment">% 具体计算原理可参考https://zhuanlan.zhihu.com/p/556915351的2.2节</span><br>Ad = expm(A*dt);<br>Bd = int(expm(A*s),<span class="hljs-number">0</span>,dt)*B;<br>Bd = eval(Bd);<br><br><br><span class="hljs-keyword">for</span> step = <span class="hljs-number">1</span>:<span class="hljs-number">15000</span><br>    error = x - x0;<br>    <span class="hljs-comment">% 欧几里得范数也是一种k类函数</span><br>    <span class="hljs-keyword">if</span> norm(error) &gt;= sigma_prime * norm(x)<br>        x0 = x;<br>        u = K*x0;<br>        trigger_count = trigger_count + <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">end</span><br>    x = Ad*x + Bd*u;<br>    <br>    E = norm(error);<br>    ET = sigma_prime * norm(x);<br>    EUB = sigma * norm(x);<br><br>    error_buffer = [error_buffer E];<br>    error_trigger = [error_trigger ET];<br>    error_upper_bound = [error_upper_bound EUB];<br>    x_buffer = [x_buffer x];<br>    u_buffer = [u_buffer u];<br>    <br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">%% plot</span><br><br><span class="hljs-built_in">figure</span>(<span class="hljs-number">1</span>)<br><span class="hljs-built_in">hold</span> on<br><span class="hljs-built_in">plot</span>(x_buffer&#x27;, <span class="hljs-string">&#x27;LineWidth&#x27;</span>, <span class="hljs-number">1.5</span>);<br><span class="hljs-built_in">plot</span>(u_buffer, <span class="hljs-string">&#x27;LineWidth&#x27;</span>, <span class="hljs-number">1.5</span>);<br><span class="hljs-built_in">legend</span>(<span class="hljs-string">&#x27;x1&#x27;</span>, <span class="hljs-string">&#x27;x2&#x27;</span>, <span class="hljs-string">&#x27;u&#x27;</span>);<br><br><span class="hljs-built_in">figure</span>(<span class="hljs-number">2</span>)<br><span class="hljs-built_in">hold</span> on<br><span class="hljs-built_in">plot</span>(error_buffer, <span class="hljs-string">&#x27;LineWidth&#x27;</span>, <span class="hljs-number">1</span>);<br><span class="hljs-built_in">plot</span>(error_trigger, <span class="hljs-string">&#x27;LineWidth&#x27;</span>, <span class="hljs-number">1.5</span>, <span class="hljs-string">&#x27;Color&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>);<br><span class="hljs-built_in">plot</span>(error_upper_bound, <span class="hljs-string">&#x27;LineWidth&#x27;</span>, <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;Color&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>);<br><span class="hljs-built_in">legend</span>(<span class="hljs-string">&#x27;error&#x27;</span>, <span class="hljs-string">&#x27;error trigger&#x27;</span>, <span class="hljs-string">&#x27;error upper bound&#x27;</span>);<br><br>fprintf(<span class="hljs-string">&#x27;the system has been triggered %d times in all\n&#x27;</span>, trigger_count);<br><br></code></pre></td></tr></table></figure>
+
+<p> 仿真结果：</p>
+<p> <img src="https://s2.loli.net/2023/07/20/6xms4BwDbjktp5T.png" srcset="/img/loading.gif" lazyload alt="image-20230720231406017"></p>
+<p> <img src="https://s2.loli.net/2023/07/20/q5raNL71SfctwA2.png" srcset="/img/loading.gif" lazyload alt="image-20230720231348243"></p>
+</li>
+</ol>
+<p>​		可见最后的实际误差确实在由事件触发规则限制的误差之下，系统也达到了收敛状态</p>
 
                 
               </div>
@@ -376,7 +384,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%87%AA%E5%B7%B1%E4%BA%8B%E6%83%85%E9%9D%A0%E8%87%AA%E5%B7%B1/" class="category-chain-item">自己事情靠自己</a>
+  <a href="/categories/%E7%A7%91%E7%A0%94%E5%8F%AA%E4%B8%BA%E6%8A%8A%E4%B8%9A%E6%AF%95/" class="category-chain-item">科研只为把业毕</a>
   
   
 
@@ -391,11 +399,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E7%AE%97%E6%B3%95/" class="print-no-link">#算法</a>
+        <a href="/tags/%E5%8D%8F%E5%90%8C%E6%8E%A7%E5%88%B6/" class="print-no-link">#协同控制</a>
       
-        <a href="/tags/leetcode/" class="print-no-link">#leetcode</a>
-      
-        <a href="/tags/bug/" class="print-no-link">#bug</a>
+        <a href="/tags/%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91/" class="print-no-link">#事件触发</a>
       
     </div>
   
@@ -407,8 +413,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>记位运算符(＞＞)使用不当引起的一次bug</div>
-      <div>https://qlhhahaha.github.io/2023/04/13/记位运算符(＞＞)使用不当引起的一次bug/</div>
+      <div>event-triggered系列论文学习</div>
+      <div>https://qlhhahaha.github.io/2023/07/20/event_triggered/</div>
     </div>
     <div class="license-meta">
       
@@ -420,7 +426,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年4月13日</div>
+          <div>2023年7月20日</div>
         </div>
       
       
@@ -452,15 +458,15 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/04/13/%E5%8D%A0%E4%B8%AA%E5%9D%912/" title="分类占坑2">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">分类占坑2</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2023/06/14/%E3%80%8AEE364A%E7%AC%94%E8%AE%B0%E3%80%8B/" title="EE364A笔记">
+                        <span class="hidden-mobile">EE364A笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
