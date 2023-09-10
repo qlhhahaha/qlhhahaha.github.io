@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>论文学习：A survey of distributed optimization</title>
+    <link href="/2023/09/10/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%98%E5%8C%96%E7%BB%BC%E8%BF%B0/"/>
+    <url>/2023/09/10/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%98%E5%8C%96%E7%BB%BC%E8%BF%B0/</url>
+    
+    <content type="html"><![CDATA[<h1>A survey of distributed optimization, 2019, Annual Reviews in Control</h1><h3 id="一、introduction">一、introduction</h3><ol><li><strong>分布式优化</strong><br>$$<br>\min_{x\in\mathbb{R}^n}\sum_{i=1}^Nf_i(x),<br>$$</li></ol><h3 id="二、离散时间分布式优化算法">二、离散时间分布式优化算法</h3><ol><li><p><strong>递减步长（diminishing step-sizes）</strong></p><p><strong>DGD: Distributed Gradient Descent</strong><br>$$<br>x_i(k+1)=\sum_{j=1}^Nw_{ij}(k)x_j(k)-\alpha(k)s_i(k),<br>$$<br>其中$$w_{ij}(k)$$是边的权重，$$s_i(k)$$是局部函数$$f_i(x)$$的（次）梯度，$$\alpha(k)&gt;0$$是递减的步长，其满足：<br>$$<br>\begin{aligned}&amp;\sum_{k=0}^\infty\alpha\left(k\right)=\infty,\sum_{k=0}^\infty\alpha^2(k)&lt;\infty,\&amp;\alpha\left(k\right)\leq\alpha\left(s\right)\mathrm{~for~all~}k&gt;s\geq0.\end{aligned}<br>$$</p></li><li><p><strong>固定步长（fixed step-sizes）</strong></p></li></ol><p>​<strong>EXTRA: Exact first-order algorithm</strong></p><p>​第一步：<br>$$<br>x_i(1)=\sum_{j=1}^Nw_{ij}x_j(0)-\alpha\nabla f_i(x_i(0)),<br>$$<br>​其中$$\alpha&gt;0$$是固定步长</p><p>​第二步：<br>$$<br>\begin{aligned}x_i(k+2)&amp;=x_i(k+1)+\sum_{j=1}^Nw_{ij}x_j(k+1)-\sum_{j=1}^N\tilde{w}_{ij}x_j(k)\&amp;-\alpha\left(\nabla f_i(x_i(k+1))-\nabla f_i(x_i(k))\right),\mathrm{~}k=0,\mathrm{~}1,\ldots,\end{aligned}<br>$$<br>​相较于DGD算法，EXTRA用到了前两步的梯度信息，文献表明，<strong>EXTRA可以看作是具有误差校正项的DGD</strong></p><p>​<strong>DIGing： distributed inexact gradient method and the gradient tracking</strong>、<br>$$<br>\begin{aligned}<br>&amp;x_i(k+1) =\sum_{j=1}^Nw_{ij}x_j(k)-\alpha y_i(k),  \<br>&amp;y_{i}(k+1) =\sum_{i=1}^Nw_{ij}y_j(k)+\nabla f_i(x_i(k+1))-\nabla f_i(x_i(k)),<br>\end{aligned}<br>$$</p><p>​<strong>Distributed PI algorithm</strong><br>$$<br>\begin{aligned}<br>&amp;x_i(k+1) =x_i(k)-v_i(k)-\alpha\nabla f_i(x_i(k))-\beta\sum_{j\in\mathcal{N}<em>i}a</em>{ij}(x_i(k)-x_j(k)), \<br>&amp;\nu_i(k+1) =v_i(k)+\alpha\beta\sum_{j\in\mathcal{N}<em>i}a</em>{ij}(x_i(k)-x_j(k)),<br>\end{aligned}<br>$$</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>科研只为把业毕</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>分布式优化</tag>
+      
+      <tag>多智能体控制</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>港澳深小记</title>
     <link href="/2023/08/11/%E6%B8%AF%E6%BE%B3%E6%B7%B1%E5%B0%8F%E8%AE%B0/"/>
     <url>/2023/08/11/%E6%B8%AF%E6%BE%B3%E6%B7%B1%E5%B0%8F%E8%AE%B0/</url>
