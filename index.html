@@ -279,6 +279,71 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2023/09/15/winograd%E5%8D%B7%E7%A7%AF%E5%8A%A0%E9%80%9F%E7%AE%97%E6%B3%95/" target="_self">
+          基于CPU SIMD和winograd的卷积计算加速技术
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/09/15/winograd%E5%8D%B7%E7%A7%AF%E5%8A%A0%E9%80%9F%E7%AE%97%E6%B3%95/" target="_self">
+        <div>
+          参考： AI算法基础：Winograd算法原理 卷积神经网络中的Winograd快速卷积算法  一、introduction   motivation 网络训练耗时过大，卷积层是CNN前向推理计算的主要计算瓶颈。在广泛使用的CNN模型中，卷积层的运算量可占到95%以上。 ​	   直接卷积算法   ​   ​	为啥直接卷积算法容易拖慢性能呢？  最内层的乘加语句（伪代码的第9行）无法向量化，因为无
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-15 00:00" pubdate>
+              2023-09-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%87%AA%E5%B7%B1%E4%BA%8B%E6%83%85%E9%9D%A0%E8%87%AA%E5%B7%B1/" class="category-chain-item">自己事情靠自己</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/SIMD/">#SIMD</a>
+            
+              <a href="/tags/%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/">#体系结构</a>
+            
+              <a href="/tags/AI%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97/">#AI边缘计算</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2023/09/10/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BC%98%E5%8C%96%E7%BB%BC%E8%BF%B0/" target="_self">
           论文学习：A survey of distributed optimization
         </a>
@@ -853,71 +918,6 @@
               <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>
             
               <a href="/tags/leetcode/">#leetcode</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/04/13/%E5%80%9F%E4%B8%80%E9%81%93leetcode%E6%80%9D%E8%80%83%E6%80%BB%E7%BB%93mapset%E7%9A%84%E5%BA%94%E7%94%A8%E5%8F%8A%E5%8C%BA%E5%88%AB/" target="_self">
-          借一道leetcode思考总结map/set的应用及区别
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/13/%E5%80%9F%E4%B8%80%E9%81%93leetcode%E6%80%9D%E8%80%83%E6%80%BB%E7%BB%93mapset%E7%9A%84%E5%BA%94%E7%94%A8%E5%8F%8A%E5%8C%BA%E5%88%AB/" target="_self">
-        <div>
-          前言 原题是leetcode349，要求两个数组的交集  这题本身不难，主要是要考虑到：  原题只需求“频率”，无需考虑“顺序”，则应使用哈希表结构，而不是顺序结构+两个for暴力遍历 用于作键值key的是数字而非字母，所以应该用正儿八经的set/map，而不是用vector搞伪hash（否则当数字键值很大且稀疏时，vector会浪费大量空间） 不需要设置明确的key，所以用set，而不是map
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-04-13 00:00" pubdate>
-              2023-04-13
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%87%AA%E5%B7%B1%E4%BA%8B%E6%83%85%E9%9D%A0%E8%87%AA%E5%B7%B1/" class="category-chain-item">自己事情靠自己</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/c/">#c++</a>
-            
-              <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>
-            
-              <a href="/tags/%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95/">#哈希算法</a>
             
           </div>
         
