@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/05/22/VpDxY9.png">
 <meta property="og:image" content="https://s2.loli.net/2023/09/18/WgXk63bvhR1Mquy.png">
 <meta property="article:published_time" content="2023-09-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-09-19T01:22:42.976Z">
+<meta property="article:modified_time" content="2023-09-19T01:30:38.054Z">
 <meta property="article:author" content="qlhhahaha">
 <meta property="article:tag" content="SIMD">
 <meta property="article:tag" content="体系结构">
@@ -371,7 +371,7 @@
 <p><strong>1D winograd算法</strong></p>
 <p>以1维卷积$F(2, 3)$为例，输入信号$d=[d_0,d_1,d_2,d_3]^T$，卷积核$g=[g_0,g_1,g_2]^T$，那么卷积可以写成下列矩阵乘法形式：<br>
 $$<br>
-F(2,3)=\begin{bmatrix}d_0&amp;d_1&amp;d_2\d_1&amp;d_2&amp;d_3\end{bmatrix}\begin{bmatrix}g_0\g_1\g_2\end{bmatrix}=\begin{bmatrix}r_0\r_1\end{bmatrix}<br>
+F(2,3)=\begin{bmatrix}d_0&amp;d_1&amp;d_2\\d_1&amp;d_2&amp;d_3\end{bmatrix}\begin{bmatrix}g_0\\g_1\\g_2\end{bmatrix}=\begin{bmatrix}r_0\\r_1\end{bmatrix}<br>
 $$<br>
 如果这个计算过程使用普通的矩阵乘法，一共需要 <strong>6 次乘法 + 4次加法</strong>：<br>
 $$<br>
