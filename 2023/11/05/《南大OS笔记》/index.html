@@ -16,80 +16,25 @@
   <meta name="author" content="qlhhahaha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="title: 《南京大学操作系统笔记》 date: 2023-11-5 tags: [操作系统, X86] categories: 核心科技看美帝 index_img: &#x2F;img&#x2F;jyy.png              课程来源：NJU-OS(22 spring)课程主页：[操作系统：设计与实现 (2022 春季学期)](https:&#x2F;&#x2F;github.com&#x2F;qlhhahaha&#x2F;CS61C-SU">
+    <meta name="description" content="课程来源：NJU-OS(22 spring)课程主页：操作系统：设计与实现 (2022 春季学期)课程视频：https:&#x2F;&#x2F;space.bilibili.com&#x2F;202224425&#x2F;channel&#x2F;collectiondetail?sid&#x3D;192498            《南大OS笔记》@qlhhahaha Lecture0、基础知识补充   ECF（Exceptio">
 <meta property="og:type" content="article">
-<meta property="og:title" content="钱力晖的小站">
+<meta property="og:title" content="南京大学操作系统笔记">
 <meta property="og:url" content="https://qlhhahaha.github.io/2023/11/05/%E3%80%8A%E5%8D%97%E5%A4%A7OS%E7%AC%94%E8%AE%B0%E3%80%8B/index.html">
 <meta property="og:site_name" content="钱力晖的小站">
-<meta property="og:description" content="title: 《南京大学操作系统笔记》 date: 2023-11-5 tags: [操作系统, X86] categories: 核心科技看美帝 index_img: &#x2F;img&#x2F;jyy.png              课程来源：NJU-OS(22 spring)课程主页：[操作系统：设计与实现 (2022 春季学期)](https:&#x2F;&#x2F;github.com&#x2F;qlhhahaha&#x2F;CS61C-SU">
+<meta property="og:description" content="课程来源：NJU-OS(22 spring)课程主页：操作系统：设计与实现 (2022 春季学期)课程视频：https:&#x2F;&#x2F;space.bilibili.com&#x2F;202224425&#x2F;channel&#x2F;collectiondetail?sid&#x3D;192498            《南大OS笔记》@qlhhahaha Lecture0、基础知识补充   ECF（Exceptio">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/HoTh3f4UIMEAOV8.jpg">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/U2RelQGcsMA4EVh.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/x7apfZhNHC9ques.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/C67UHzRwhpOea5c.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/5G9tMFhkjnwBOpE.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/eOM5gRbPGw1WSup.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/Tq8DOc1tKJRNdgr.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/IKrbYvFkix4OlGJ.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/xGykX2wqzlApn75.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/mLeaRVvpNj7ikJ4.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/yn4P9Vzvehp6WS1.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/8fJLWCQcyqnUzFV.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/S1rluGZy9jEvkHV.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/QsaT1UKbN2Zwh9d.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/zWYVJtZi5n1GACS.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/8l6eP43abOmS7KI.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/udMojUgswG3ZCX1.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/IhiZvNnyeSAgOks.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/h34kPjpTFN72una.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/XcorbaZmEflyDwe.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/2cUAxvhHIzCe3fE.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/PCnf5Sjl7xATdRz.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/OG6tpPNZrFdEm7Y.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/dKPwflzYX1BqoOL.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/L8nlSUbDyzViOK7.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/kRstXP9Zzx2Yv6L.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/Vr94ZQGeDzYptWl.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/ACMolNFirtJYLk6.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/xbsf1RqTUk56YQF.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/LNSsjBE1fqyPHWV.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/pyJ5sm7bltr1dcx.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/ldr8LEMzohPBN4q.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/1hgKdJORWnpyVvS.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/BnRJODCh9UjMZbt.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/3jEyXOZPMx5UIuA.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/zfwv85SBgLR3EiG.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/naxRsQlX6BiJzKj.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/xpwnKZUXzgf3HPS.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/kFcy8ALaUopSJgl.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/pElB3V2yFunt9ZH.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/pqjeC6RKyTPnYvB.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/YQ7MacIrKWCytxA.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/9UCJBD4EqboluKk.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/6KRHiQfXbPVUlej.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/I7dorgOqaWUh2xl.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/aZr2Gz5tR6IKydc.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/J2R7IExVAhHcC8G.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/SzIyVdDilM1396C.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/dbPD2hwGzBpvilj.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/mvWGJz8B4FxrSnA.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/gtfEmQxRusMO6aP.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/W4Jr1Y6GZdQhzjH.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/okdLWE3n2DsBSZg.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/yi7ApogkNIh6enP.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/wxZBm8ADe2pIla6.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/kLZSEo5JsxOVnI2.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/XSchPK7egFGJnZW.png">
-<meta property="og:image" content="https://s2.loli.net/2023/11/05/FUm43JsQMo9AO2z.png">
-<meta property="article:published_time" content="2023-11-05T07:43:58.873Z">
-<meta property="article:modified_time" content="2023-11-05T07:43:58.873Z">
+<meta property="og:image" content="https://qlhhahaha.github.io/img/jyy.png">
+<meta property="article:published_time" content="2023-11-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-11-05T07:48:22.247Z">
 <meta property="article:author" content="qlhhahaha">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="X86">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2023/11/05/HoTh3f4UIMEAOV8.jpg">
+<meta name="twitter:image" content="https://qlhhahaha.github.io/img/jyy.png">
   
   
   
-  <title>钱力晖的小站</title>
+  <title>南京大学操作系统笔记 - 钱力晖的小站</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -308,7 +253,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="南京大学操作系统笔记"></span>
           
         </div>
 
@@ -319,8 +264,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-11-05 15:43" pubdate>
-          2023年11月5日 下午
+        <time datetime="2023-11-05 00:00" pubdate>
+          2023年11月5日 凌晨
         </time>
       </span>
     
@@ -342,7 +287,7 @@
         
         
         
-          126 分钟
+          125 分钟
         
       </span>
     
@@ -379,18 +324,13 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header"></h1>
+            <h1 id="seo-header">南京大学操作系统笔记</h1>
             
             
               <div class="markdown-body">
                 
-                <p>title: 《南京大学操作系统笔记》<br>
-date: 2023-11-5<br>
-tags: [操作系统, X86]<br>
-categories: 核心科技看美帝<br>
-index_img: /img/jyy.png</p>
-<div class="note note-success">
-            <p>课程来源：NJU-OS(22 spring)</p><p>课程主页：[<a target="_blank" rel="noopener" href="https://jyywiki.cn/OS/2022/index.html">操作系统：设计与实现 (2022 春季学期)</a>](<a target="_blank" rel="noopener" href="https://github.com/qlhhahaha/CS61C-SU20">https://github.com/qlhhahaha/CS61C-SU20</a>)</p><p>课程视频：<a target="_blank" rel="noopener" href="https://space.bilibili.com/202224425/channel/collectiondetail?sid=192498">https://space.bilibili.com/202224425/channel/collectiondetail?sid=192498</a></p>
+                <div class="note note-success">
+            <p>课程来源：NJU-OS(22 spring)</p><p>课程主页：<a target="_blank" rel="noopener" href="https://github.com/qlhhahaha/CS61C-SU20">操作系统：设计与实现 (2022 春季学期)</a></p><p>课程视频：<a target="_blank" rel="noopener" href="https://space.bilibili.com/202224425/channel/collectiondetail?sid=192498">https://space.bilibili.com/202224425/channel/collectiondetail?sid=192498</a></p>
           </div>
 <h1>《南大OS笔记》@qlhhahaha</h1>
 <h2 id="Lecture0、基础知识补充">Lecture0、基础知识补充</h2>
@@ -460,13 +400,13 @@ index_img: /img/jyy.png</p>
 </ol>
 <p>​</p>
 <ol start="2">
-<li>
-<p><strong>并发的基本单位：线程</strong></p>
+<li><strong>并发的基本单位：线程</strong></li>
+</ol>
 <p>各个线程有自己的PC、寄存器、栈空间，但全局的静态空间是共享的</p>
 <p><img src="https://s2.loli.net/2023/11/05/eOM5gRbPGw1WSup.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <ol start="3">
-<li><strong>并发牺牲了什么？</strong></li>
-</ol>
+<li>
+<p><strong>并发牺牲了什么？</strong></p>
 <ul>
 <li>
 <p><strong>原子性</strong></p>
@@ -1096,6 +1036,36 @@ $$<br>
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%A0%B8%E5%BF%83%E7%A7%91%E6%8A%80%E7%9C%8B%E7%BE%8E%E5%B8%9D/" class="category-chain-item">核心科技看美帝</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="print-no-link">#操作系统</a>
+      
+        <a href="/tags/X86/" class="print-no-link">#X86</a>
+      
+    </div>
   
 </div>
 
@@ -1105,7 +1075,7 @@ $$<br>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
+      <div>南京大学操作系统笔记</div>
       <div>https://qlhhahaha.github.io/2023/11/05/《南大OS笔记》/</div>
     </div>
     <div class="license-meta">
