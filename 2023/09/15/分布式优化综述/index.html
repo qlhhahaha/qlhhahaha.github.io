@@ -26,6 +26,7 @@
 <meta property="og:image" content="https://s2.loli.net/2023/09/18/STyFurcMlhY1Q84.png">
 <meta property="og:image" content="https://s2.loli.net/2023/09/18/4bX8cHxhOtZuDkQ.png">
 <meta property="og:image" content="https://s2.loli.net/2023/09/18/WbAez5gHyElVTOu.png">
+<meta property="og:image" content="https://s2.loli.net/2023/09/11/ST9zrA3w4no6muy.png">
 <meta property="og:image" content="https://s2.loli.net/2023/09/18/AeutOlUp2kZTqQg.png">
 <meta property="og:image" content="https://s2.loli.net/2023/09/18/hPkeuWsfGYZUr4t.png">
 <meta property="og:image" content="https://s2.loli.net/2023/09/19/rbI1T2WBDkCsE5O.png">
@@ -38,7 +39,7 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/05/22/VpDxY9.png">
 <meta property="og:image" content="https://s2.loli.net/2023/09/18/WgXk63bvhR1Mquy.png">
 <meta property="article:published_time" content="2023-09-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-18T08:22:53.946Z">
+<meta property="article:modified_time" content="2023-12-18T08:49:29.903Z">
 <meta property="article:author" content="qlhhahaha">
 <meta property="article:tag" content="SIMD">
 <meta property="article:tag" content="体系结构">
@@ -290,7 +291,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          3.1k 字
         
       </span>
     
@@ -301,7 +302,7 @@
         
         
         
-          18 分钟
+          26 分钟
         
       </span>
     
@@ -388,22 +389,113 @@ $$<br>
 <p>$$<br>
 F(2,3)=\begin{bmatrix}d_0&amp;d_1&amp;d_2\d_1&amp;d_2&amp;d_3\end{bmatrix}\begin{bmatrix}g_0\g_1\g_2\end{bmatrix}=\begin{bmatrix}m_1+m_2+m_3\m_2-m_3-m_4\end{bmatrix}<br>
 $$<br>
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD<br>
 其中，</p>
 </li>
 </ol>
-<p>$$<br>
-\begin{aligned}m_1&amp;=(d_0-d_2)g_0&amp;m_2=(d_1+d_2)\frac{g_0+g_1+g_2}{2}\m_4&amp;=(d_1-d_3)g_2&amp;m_3=(d_2-d_1)\frac{g_0-g_1+g_2}{2}\end{aligned}<br>
-$$</p>
-<p>​		在CNN的推理阶段，卷积核上的元素是固定的，所以上式中和 g 相关的式子可以提前在模型初始化阶段算好，整个推理阶段只用计算一次，因此可以忽略。所以这里一共需要 <strong>4次乘法 + 8次加法</strong>。</p>
-<p>​		上面其实就是1D的Winograd算法，我们将上面的计算过程写成矩阵的形式：<br>
+<h1>$$<br>
+\begin{aligned}m_1&amp;=(d_0-d_2)g_0&amp;m_2=(d_1+d_2)\frac{g_0+g_1+g_2}{2}\m_4&amp;=(d_1-d_3)g_2&amp;m_3=(d_2-d_1)\frac{g_0-g_1+g_2}{2}\end{aligned}</h1>
+<pre><code class="hljs">$$
+\alpha\left(k\right)\leq\alpha\left(s\right)\mathrm&#123;~for~all~&#125;k&gt;s\geq0.
+$$
+
+DGD算法本质上是将优化过程分成了两部分：一部分是consensus,即利用Weight matrix将连通节点的信息做一个沟通；另一部分就是传统的梯度下降，这里的梯度下降是针对每一个local节点。而DGD有一个显著的缺点：如果DGD当中的步长选择常数的话，那么会得到inexact convergence；而如果选择逐渐趋于零的步长(diminishing step size)，那么虽然可以得到exact convergence, 但是会造成较慢的收敛速度，这在实际应用当中是一个棘手的问题。
+
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><code class="hljs matlab"><span class="hljs-comment">% DGD仿真</span><br><br>num_nodes = <span class="hljs-number">5</span>;  <span class="hljs-comment">% 节点数量</span><br><br><span class="hljs-comment">% 有向图</span><br>adjacency_matrix_dir = [ <span class="hljs-number">1</span>  <span class="hljs-number">0</span> <span class="hljs-number">-1</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>;<br>                        <span class="hljs-number">-1</span>  <span class="hljs-number">2</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span> <span class="hljs-number">-1</span>;<br>                        <span class="hljs-number">-1</span> <span class="hljs-number">-1</span>  <span class="hljs-number">2</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>;<br>                         <span class="hljs-number">0</span>  <span class="hljs-number">0</span> <span class="hljs-number">-1</span>  <span class="hljs-number">1</span>  <span class="hljs-number">0</span>;<br>                         <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span> <span class="hljs-number">-1</span>  <span class="hljs-number">1</span>];  <br><br><span class="hljs-comment">% 无向图</span><br>adjacency_matrix_undir = [ <span class="hljs-number">2</span> <span class="hljs-number">-1</span> <span class="hljs-number">-1</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>;<br>                          <span class="hljs-number">-1</span>  <span class="hljs-number">2</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span> <span class="hljs-number">-1</span>;<br>                          <span class="hljs-number">-1</span>  <span class="hljs-number">0</span>  <span class="hljs-number">2</span> <span class="hljs-number">-1</span>  <span class="hljs-number">0</span>;<br>                           <span class="hljs-number">0</span>  <span class="hljs-number">0</span> <span class="hljs-number">-1</span>  <span class="hljs-number">2</span> <span class="hljs-number">-1</span>;<br>                           <span class="hljs-number">0</span> <span class="hljs-number">-1</span>  <span class="hljs-number">0</span> <span class="hljs-number">-1</span>  <span class="hljs-number">2</span>];  <br><br><br><span class="hljs-comment">% 初始化节点参数和本地梯度</span><br><span class="hljs-comment">%node_params = rand(num_nodes, 1);  % 初始参数</span><br>node_params = [<span class="hljs-number">0.1</span> <span class="hljs-number">0.2</span> <span class="hljs-number">0.3</span> <span class="hljs-number">0.4</span> <span class="hljs-number">0.5</span>]&#x27;;<br>local_gradients = <span class="hljs-built_in">zeros</span>(num_nodes, <span class="hljs-number">1</span>);<br><br><span class="hljs-comment">% 设置全局目标函数（示例中为简单的平方和）</span><br>global_objective = @(x) sum(x.^<span class="hljs-number">2</span>);<br><br>num_iterations = <span class="hljs-number">1000</span>;<br>learning_rate = <span class="hljs-number">0.01</span>;<br><br><span class="hljs-comment">% 创建用于存储可视化数据的数组</span><br>param_history = <span class="hljs-built_in">zeros</span>(num_iterations, num_nodes);<br><br><br><span class="hljs-keyword">for</span> iteration = <span class="hljs-number">1</span>:num_iterations<br>    <span class="hljs-keyword">for</span> node = <span class="hljs-number">1</span>:num_nodes<br>        local_gradients(node) = <span class="hljs-number">2</span> * node_params(node);<br>        <br>        <span class="hljs-comment">% 与邻居节点共享梯度信息并更新参数</span><br>        <span class="hljs-keyword">for</span> neighbor = <span class="hljs-number">1</span>:num_nodes<br>            <span class="hljs-keyword">if</span> adjacency_matrix_dir(node, neighbor) == <span class="hljs-number">-1</span><br>                node_params(node) = node_params(node) - learning_rate * (node_params(node) - node_params(neighbor));<br>            <span class="hljs-keyword">end</span><br>        <span class="hljs-keyword">end</span><br>        <br>        <span class="hljs-comment">% 存储参数历史</span><br>        param_history(iteration, :) = node_params;<br>    <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">% 输出最终的全局最优解</span><br>global_minimizer = node_params;<br>global_minimum = global_objective(global_minimizer);<br>fprintf(<span class="hljs-string">&#x27;全局最优解：&#x27;</span>);<br><span class="hljs-built_in">disp</span>(global_minimizer);<br>fprintf(<span class="hljs-string">&#x27;全局最小值：%f\n&#x27;</span>, global_minimum);<br><br><span class="hljs-comment">% 可视化节点参数随时间的变化</span><br><span class="hljs-built_in">figure</span>;<br><span class="hljs-built_in">hold</span> on;<br><span class="hljs-keyword">for</span> node = <span class="hljs-number">1</span>:num_nodes<br>    <span class="hljs-built_in">plot</span>(<span class="hljs-number">1</span>:num_iterations, param_history(:, node), <span class="hljs-string">&#x27;LineWidth&#x27;</span>, <span class="hljs-number">2</span>, <span class="hljs-string">&#x27;DisplayName&#x27;</span>, sprintf(<span class="hljs-string">&#x27;节点 %d&#x27;</span>, node));<br><span class="hljs-keyword">end</span><br>xlabel(<span class="hljs-string">&#x27;迭代次数&#x27;</span>);<br>ylabel(<span class="hljs-string">&#x27;节点参数&#x27;</span>);<br>title(<span class="hljs-string">&#x27;节点参数随时间的变化&#x27;</span>);<br><span class="hljs-built_in">legend</span>(<span class="hljs-string">&#x27;Location&#x27;</span>, <span class="hljs-string">&#x27;Best&#x27;</span>);<br>grid on;<br><span class="hljs-built_in">hold</span> off;<br><br></code></pre></td></tr></table></figure>
+
+仿真结果：
+
+![无向图](https://s2.loli.net/2023/09/11/unY1li45ovgDGUR.png)
+</code></pre>
+<p>​		无需太多解释，为无向图完全连通时，最终各节点值趋于平均值，即经典的consensus</p>
+<p>​		<img src="https://s2.loli.net/2023/09/11/ST9zrA3w4no6muy.png" srcset="/img/loading.gif" lazyload alt="有向图"></p>
+<p>​		为有向图时，因为不是各节点之间都还能“均匀地”通信，所以结果也不再是全局平均</p>
+<div class="note note-warning">
+            <p>💡 PS. 只要能够收敛，各节点最终的收敛值就与目标函数无关哈（跟全局和局部目标函数都无关，全局只是局部之和而已），只与通信拓扑有关。因为从迭代过程中就可以发现，只有梯度和目标函数有关，但梯度只影响迭代速率（或者说顶多导致震荡，无法收敛到精确值），不影响收敛终值</p>
+          </div>
+<ol start="2">
+<li><strong>固定步长（fixed step-sizes）</strong></li>
+</ol>
+<p>​	<strong>EXTRA: Exact first-order algorithm</strong></p>
+<p>​	第一步：<br>
 $$<br>
-Y=A^T[(Gg)\odot(B^Td)]<br>
+x_i(1)=\sum_{j=1}^Nw_{ij}x_j(0)-\alpha\nabla f_i(x_i(0)),<br>
+$$<br>
+​	其中$$\alpha&gt;0$$是固定步长</p>
+<p>​	第二步：<br>
+$$<br>
+\begin{aligned}x_i(k+2)&amp;=x_i(k+1)+\sum_{j=1}^Nw_{ij}x_j(k+1)-\sum_{j=1}^N\tilde{w}_{ij}x_j(k)-\alpha\left(\nabla f_i(x_i(k+1))-\nabla f_i(x_i(k))\right),\mathrm{~}k=0,\mathrm{~}1,\ldots,\end{aligned}<br>
+$$<br>
+​	相较于DGD算法，EXTRA用到了前两步的梯度信息，文献表明，<strong>EXTRA可以看作是具有误差校正项的DGD</strong></p>
+<p>​	<strong>DIGing： distributed inexact gradient method and the gradient tracking</strong><br>
+$$<br>
+x_i(k+1) =\sum_{j=1}^Nw_{ij}x_j(k)-\alpha y_i(k),<br>
+$$</p>
+<p>$$<br>
+y_{i}(k+1) =\sum_{i=1}^Nw_{ij}y_j(k)+\nabla f_i(x_i(k+1))-\nabla f_i(x_i(k)),</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>parent of 3a82f4f (Update <a target="_blank" rel="noopener" href="http://xn--4oq34emxav33akibfx0i91ya.md">分布式优化综述.md</a>)<br>
+$$</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>​		在CNN的推理阶段，卷积核上的元素是固定的，所以上式中和 g 相关的式子可以提前在模型初始化阶段算好，整个推理阶段只用计算一次，因此可以忽略。所以这里一共需要 <strong>4次乘法 + 8次加法</strong>。</p>
+<h1>​		上面其实就是1D的Winograd算法，我们将上面的计算过程写成矩阵的形式：<br>
+$$<br>
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD<br>
+Y=A^T[(Gg)\odot(B^Td)]</h1>
+<p>x_i(k+1) =x_i(k)-v_i(k)-\alpha\nabla f_i(x_i(k))-\beta\sum_{j\in\mathcal{N}<em>i}a</em>{ij}(x_i(k)-x_j(k)),</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>parent of 3a82f4f (Update <a target="_blank" rel="noopener" href="http://xn--4oq34emxav33akibfx0i91ya.md">分布式优化综述.md</a>)<br>
 $$<br>
 ​		其中，</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
 <ul>
-<li>
-<p>$\odot$表示element-wise multiplication（Hadamard product），即对应位置相乘操作；</p>
-</li>
+<li>$\odot$表示element-wise multiplication（Hadamard product），即对应位置相乘操作；<br>
+=======<br>
+$$<br>
+\nu_i(k+1) =v_i(k)+\alpha\beta\sum_{j\in\mathcal{N}<em>i}a</em>{ij}(x_i(k)-x_j(k)),<br>
+$$</li>
+</ul>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>parent of 3a82f4f (Update <a target="_blank" rel="noopener" href="http://xn--4oq34emxav33akibfx0i91ya.md">分布式优化综述.md</a>)</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
 <li>
 <p>$g$ 表示卷积核；</p>
 </li>
@@ -416,14 +508,50 @@ $$<br>
 <li>
 <p>$B^T$ 表示输入变换矩阵，尺寸为$(u+k−1) × k$；</p>
 </li>
+</ul>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
+<ul>
 <li>
 <p>$A^T$ 表示输出变换矩阵，尺寸为$(u+k−1) × u$；</p>
 </li>
 <li>
 <p>$u$ 表示输出尺寸，$k$表示卷积核尺寸，$su=(u+k−1)$表示输入尺寸</p>
-<p>各矩阵具体值如下：</p>
 </li>
 </ul>
+<p>=======<br>
+​		<strong>Distributed PI algorithm</strong><br>
+$$<br>
+\dot{x}<em>i(t) =\sum</em>{j=1}^Na_{ij}(x_j(t)-x_i(t))+\sum_{j=1}^Na_{ij}(\nu_j(t)-\nu_i(t))-\nabla f_i(x_i(t)),<br>
+$$</p>
+<p>$$<br>
+\dot{\nu}<em>i(t) =\sum</em>{j=1}^Na_{ij}(x_i(t)-x_j(t)),<br>
+$$</p>
+<ol start="2">
+<li>
+<p><strong>二阶梯度算法</strong></p>
+<p><strong>Zero-Gradient-Sum Algorithm</strong><br>
+$$<br>
+\dot{x}<em>i(t)=\gamma\left(\nabla^2f_i(x_i(t))\right)^{-1}\sum</em>{j\in\mathcal{N}<em>i}a</em>{ij}(x_j(t)-x_i(t)),<br>
+$$</p>
+</li>
+</ol>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>parent of 3a82f4f (Update <a target="_blank" rel="noopener" href="http://xn--4oq34emxav33akibfx0i91ya.md">分布式优化综述.md</a>)</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<pre><code class="hljs"> 各矩阵具体值如下：
+</code></pre>
 <p>$$<br>
 B^T=\begin{bmatrix}1&amp;0&amp;-1&amp;0\0&amp;1&amp;1&amp;0\0&amp;-1&amp;1&amp;0\0&amp;1&amp;0&amp;-1\end{bmatrix}<br>
 $$</p>
