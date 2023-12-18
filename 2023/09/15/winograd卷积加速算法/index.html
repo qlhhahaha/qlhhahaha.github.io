@@ -16,23 +16,29 @@
   <meta name="author" content="qlhhahaha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="参考： AI算法基础：Winograd算法原理 卷积神经网络中的Winograd快速卷积算法  一、introduction   motivation 网络训练耗时过大，卷积层是CNN前向推理计算的主要计算瓶颈。在广泛使用的CNN模型中，卷积层的运算量可占到95%以上。 ​	   直接卷积算法   ​   ​	为啥直接卷积算法容易拖慢性能呢？  最内层的乘加语句（伪代码的第9行）无法向量化，因为无">
+    <meta name="description" content="参考： AI算法基础：Winograd算法原理 卷积神经网络中的Winograd快速卷积算法 从TensorRT看INT8量化原理 MegEngine Inference 卷积优化之 Im2col 和 winograd 优化  一、introduction   motivation 网络训练耗时过大，卷积层是CNN前向推理计算的主要计算瓶颈。在广泛使用的CNN模型中，卷积层的运算量可占到95%以上">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于CPU SIMD和winograd的卷积计算加速技术">
 <meta property="og:url" content="https://qlhhahaha.github.io/2023/09/15/winograd%E5%8D%B7%E7%A7%AF%E5%8A%A0%E9%80%9F%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="钱力晖的小站">
-<meta property="og:description" content="参考： AI算法基础：Winograd算法原理 卷积神经网络中的Winograd快速卷积算法  一、introduction   motivation 网络训练耗时过大，卷积层是CNN前向推理计算的主要计算瓶颈。在广泛使用的CNN模型中，卷积层的运算量可占到95%以上。 ​	   直接卷积算法   ​   ​	为啥直接卷积算法容易拖慢性能呢？  最内层的乘加语句（伪代码的第9行）无法向量化，因为无">
+<meta property="og:description" content="参考： AI算法基础：Winograd算法原理 卷积神经网络中的Winograd快速卷积算法 从TensorRT看INT8量化原理 MegEngine Inference 卷积优化之 Im2col 和 winograd 优化  一、introduction   motivation 网络训练耗时过大，卷积层是CNN前向推理计算的主要计算瓶颈。在广泛使用的CNN模型中，卷积层的运算量可占到95%以上">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/09/18/STyFurcMlhY1Q84.png">
 <meta property="og:image" content="https://s2.loli.net/2023/09/18/4bX8cHxhOtZuDkQ.png">
 <meta property="og:image" content="https://s2.loli.net/2023/09/18/WbAez5gHyElVTOu.png">
 <meta property="og:image" content="https://s2.loli.net/2023/09/18/AeutOlUp2kZTqQg.png">
 <meta property="og:image" content="https://s2.loli.net/2023/09/18/hPkeuWsfGYZUr4t.png">
+<meta property="og:image" content="https://s2.loli.net/2023/09/19/rbI1T2WBDkCsE5O.png">
+<meta property="og:image" content="https://s2.loli.net/2023/09/19/FpZUAQt4Wm6kJKh.png">
+<meta property="og:image" content="https://s2.loli.net/2023/09/19/JAehzRkBIYyFKCq.png">
+<meta property="og:image" content="https://s2.loli.net/2023/09/19/Q4O2SejG36Bwv79.png">
+<meta property="og:image" content="https://s2.loli.net/2023/09/19/QH3tJEMeopzyZ8B.png">
+<meta property="og:image" content="https://s2.loli.net/2023/09/19/OQZjfstRBLKE2uS.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/05/22/VpBFc6.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/05/22/VpDxY9.png">
 <meta property="og:image" content="https://s2.loli.net/2023/09/18/WgXk63bvhR1Mquy.png">
 <meta property="article:published_time" content="2023-09-14T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-18T08:49:29.903Z">
+<meta property="article:modified_time" content="2023-12-18T08:50:47.114Z">
 <meta property="article:author" content="qlhhahaha">
 <meta property="article:tag" content="SIMD">
 <meta property="article:tag" content="体系结构">
@@ -284,7 +290,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          2.1k 字
         
       </span>
     
@@ -295,7 +301,7 @@
         
         
         
-          13 分钟
+          18 分钟
         
       </span>
     
@@ -340,6 +346,8 @@
                 <p><strong>参考：</strong></p>
 <p><a target="_blank" rel="noopener" href="https://no5-aaron-wu.github.io/2021/11/16/AI-Algorithm-4-Winograd/">AI算法基础：Winograd算法原理</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/shine-lee/p/10906535.html">卷积神经网络中的Winograd快速卷积算法</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/nanmi/p/13607515.html">从TensorRT看INT8量化原理</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7112354784622936077">MegEngine Inference 卷积优化之 Im2col 和 winograd 优化</a></p>
 <h1></h1>
 <h3 id="一、introduction">一、<strong>introduction</strong></h3>
 <ol>
@@ -352,7 +360,6 @@
 <p><strong>直接卷积算法</strong></p>
 </li>
 </ol>
-<p>​</p>
 <p><img src="https://s2.loli.net/2023/09/18/4bX8cHxhOtZuDkQ.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p><img src="https://s2.loli.net/2023/09/18/WbAez5gHyElVTOu.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p>​	为啥直接卷积算法容易拖慢性能呢？</p>
@@ -371,7 +378,7 @@
 <p><strong>1D winograd算法</strong></p>
 <p>以1维卷积$F(2, 3)$为例，输入信号$d=[d_0,d_1,d_2,d_3]^T$，卷积核$g=[g_0,g_1,g_2]^T$，那么卷积可以写成下列矩阵乘法形式：<br>
 $$<br>
-F(2,3)=\begin{bmatrix}d_0&amp;d_1&amp;d_2\\d_1&amp;d_2&amp;d_3\end{bmatrix}\begin{bmatrix}g_0\\g_1\\g_2\end{bmatrix}=\begin{bmatrix}r_0\\r_1\end{bmatrix}<br>
+F(2,3)=\begin{bmatrix}d_0&amp;d_1&amp;d_2\d_1&amp;d_2&amp;d_3\end{bmatrix} \begin{bmatrix}g_0\g_1\g_2\end{bmatrix}=\begin{bmatrix}r_0\r_1\end{bmatrix}<br>
 $$<br>
 如果这个计算过程使用普通的矩阵乘法，一共需要 <strong>6 次乘法 + 4次加法</strong>：<br>
 $$<br>
@@ -385,10 +392,10 @@ $$<br>
 </li>
 </ol>
 <p>$$<br>
-m_1=(d_0-d_2)g_0,\quad m_2=(d_1+d_2)\frac{g_0+g_1+g_2}{2},\quad m_3=(d_2-d_1)\frac{g_0-g_1+g_2}{2},\quad m_4=(d_1-d_3)g_2<br>
+\begin{aligned}m_1&amp;=(d_0-d_2)g_0&amp;m_2=(d_1+d_2)\frac{g_0+g_1+g_2}{2}\m_4&amp;=(d_1-d_3)g_2&amp;m_3=(d_2-d_1)\frac{g_0-g_1+g_2}{2}\end{aligned}<br>
 $$</p>
-<p>​		在CNN的推理阶段，卷积核上的元素是固定的，所以上式中和 g 相关的式子可以提前在模型初始化阶段算好，整个推理阶段只用计算一次，因此可以忽略。		所以这里一共需要 <strong>4次乘法 + 8次加法</strong>。</p>
-<p>​		上面其实就是1D的Winograd算法，我们将上面的计算过程写成矩阵的形式如下：<br>
+<p>​		在CNN的推理阶段，卷积核上的元素是固定的，所以上式中和 g 相关的式子可以提前在模型初始化阶段算好，整个推理阶段只用计算一次，因此可以忽略。所以这里一共需要 <strong>4次乘法 + 8次加法</strong>。</p>
+<p>​		上面其实就是1D的Winograd算法，我们将上面的计算过程写成矩阵的形式：<br>
 $$<br>
 Y=A^T[(Gg)\odot(B^Td)]<br>
 $$<br>
@@ -434,25 +441,50 @@ $$</p>
 <p><img src="https://s2.loli.net/2023/09/18/hPkeuWsfGYZUr4t.png" srcset="/img/loading.gif" lazyload alt="计算F(4,3)的变换矩阵"></p>
 <ol start="3">
 <li>
-<p><strong>2D winograd算法</strong></p>
-<p>将$F(2,3)$扩展到$F(2×2,3×3)$:</p>
- <img src="https://s2.ax1x.com/2019/05/22/VpBFc6.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+<p><strong>关于乘法和加法的计算量讨论</strong></p>
+<p>为啥从经典卷积的6次乘法 + 4次加法，到winograd的4次乘法 + 8次加法就认为是耗时更少捏？</p>
+<p>下面是一个经典的二进制全加器，输入A和B以及进位Cin，输出Sum和进位输出Co</p>
+<p><img src="https://s2.loli.net/2023/09/19/rbI1T2WBDkCsE5O.png" srcset="/img/loading.gif" lazyload alt="二进制全加器"></p>
+<p>而实现乘法常用的方法是类似于手工计算乘法的方式：</p>
 </li>
 </ol>
-<p>​	我们可以看到上面切分的每一块其实际就是1D的卷积操作，写成矩阵块形式：</p>
+<p>​		<img src="https://s2.loli.net/2023/09/19/FpZUAQt4Wm6kJKh.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>​	对应的硬件结构就是阵列乘法器，计算思路是生成部分积，累加部分积和最终相加</p>
+<p>​		<img src="https://s2.loli.net/2023/09/19/JAehzRkBIYyFKCq.png" srcset="/img/loading.gif" lazyload alt="阵列乘法器"></p>
+<p>​	可见乘法器无论是元件面积还是计算耗时都大于加法器</p>
+<p>​	<strong>但是，上述经典理解适用于现代代码优化吗？</strong></p>
+<p>​	对于下面这样一段代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> sum;<br>    sum = <span class="hljs-number">10</span>;<br>    sum *= <span class="hljs-number">3</span>;<br>    <span class="hljs-keyword">return</span> sum;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>​	使用gcc -S -masm=intel得到汇编语句：</p>
+<p>​	<img src="https://s2.loli.net/2023/09/19/Q4O2SejG36Bwv79.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>​	可以看到，sum*=3被拆成了1条mov和两条add，没有用乘法</p>
+<p>​	如果是sum*=2的话，则为：</p>
+<p>​	<img src="https://s2.loli.net/2023/09/19/QH3tJEMeopzyZ8B.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>​	这下连add都省了，直接sal算术左移一位，即sum&lt;&lt;=1</p>
+<p>​	上述情况还都只是-O0编译优化，如果我们开到-O3</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> i, sum = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">10</span>; i++) &#123;<br>        sum += <span class="hljs-number">2</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> sum;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2023/09/19/OQZjfstRBLKE2uS.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>非常有意思，循环直接被优化掉了</p>
+<p>另外，在现代cpu的分支预测、SIMD向量运算的作用下，数值计算的耗时绝不仅仅是“乘法比加法慢”这么简单，这给我们的启发是，<strong>只要写出可读性足够好的代码就行，不要自作聪明地去人为优化，编译器会帮你做好这件事的，premature optimization is the root of evil</strong></p>
+<ol start="4">
+<li><strong>2D winograd算法</strong></li>
+</ol>
+<p>将$F(2,3)$扩展到$F(2×2,3×3)$:</p>
+  <img src="https://s2.ax1x.com/2019/05/22/VpBFc6.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+<p>​		我们可以看到上面切分的每一块其实际就是1D的卷积操作，写成矩阵块形式：</p>
 <img src="https://s2.ax1x.com/2019/05/22/VpDxY9.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
 <img src="https://s2.loli.net/2023/09/18/WgXk63bvhR1Mquy.png" srcset="/img/loading.gif" lazyload style="zoom: 80%;" />
-<p>​	上图中最后得到$M0…M3$的操作为4次矩阵加法以及4次矩阵乘法，由$M0…M3$得到$[R0,R1]^T$为4次矩阵加法，同样$W$矩阵的转换的计算量忽略不计。</p>
+<p>​		上图中最后得到$M_0…M_3$的操作为4次矩阵加法以及4次矩阵乘法，由$M_0…M_3$得到$[R0,R1]^T$为4次矩阵		加法，同样$W$矩阵的转换的计算量忽略不计。</p>
 <ul>
 <li>$K_{0…3}$之间的4次矩阵加法， 每次实际为4次加法（注意不要被上面扩展后的$K$矩阵划分的小方块中6个元素所迷惑，其中有重复的元素），共4×4=16次加法；</li>
 <li>4次矩阵乘法可以转换为4次 <strong>1D Winograd</strong> 来计算，每次 <strong>1D Winograd</strong> 计算中有4次乘法，8次加法，共4×4=16次乘法，4×8=32次加法；</li>
 <li>最后$M_0…M_3$之间的4次矩阵加法，由于$M$矩阵的尺寸为2×1，所以共4×2=8次加法；综上，$F(2×2,3×3)$的Winograd算法共 <strong>16次乘法和56次加法</strong>，如果使用常规卷积运算，则需要 <strong>36次乘法和32次加法</strong></li>
 </ul>
-<p>​	上面的计算过程写成矩阵的形式如下:<br>
+<p>​		上面的计算过程写成矩阵的形式如下:<br>
 $$<br>
 Y=A^T[[GgG^T]\odot[B^TdB]]A<br>
 $$</p>
-<ol start="4">
+<ol start="5">
 <li>
 <p><strong>1D到2D的公式推导</strong></p>
  <div class="note note-warning">
@@ -462,7 +494,7 @@ $$</p>
 </ol>
 <p>​		首先对上述公式进行重排，输出为2×2矩阵：<br>
 $$<br>
-[R_0,R_1]=[M_0+M_1+M2,M_1-M_2-M3]\=[M_0,M_1,M_2,M_3]\begin{bmatrix}1&amp;0\1&amp;1\1&amp;-1\0&amp;-1\end{bmatrix}=[M_0,M_1,M_2,M_3]A<br>
+[R_0,R_1]=[M_0+M_1+M_2,M_1-M_2-M_3]\=[M_0,M_1,M_2,M_3]\begin{bmatrix}1&amp;0\1&amp;1\1&amp;-1\0&amp;-1\end{bmatrix}=[M_0,M_1,M_2,M_3]A<br>
 $$<br>
 ​		结合上面计算代入$M_n$得下式：<br>
 $$<br>
@@ -473,7 +505,45 @@ $$<br>
 &amp;=A^T\bigg[[(GW_0)\odot(B^T(K_0-K_2))],[(G\frac{W_0+W_1+W_2}{2})\odot(B^T(K_1+K_2))], \<br>
 &amp;[(G\frac{W_0-W_1+W_2}2)\odot(B^T(K_2-K_1))],[(GW_2)\odot(B^T(K_1-K_3))]\Biggr]A<br>
 \end{aligned}<br>
+$$<br>
+​		由于hadamard product（$\odot$）和concat（,）操作可以交换而不影响结果，因此：<br>
+$$<br>
+\begin{aligned}<br>
+&amp;[R_0,R_1]= \<br>
+&amp;A^T\bigg[(G[W_0,\frac{W_0+W_1+W_2}{2},\frac{W_0-W_1+W_2}{2},W_2])\odot\big(B^T[K_0-K_2,K_1+K_2,K_2-K_1,K_1-K_3]\big)\bigg]A \<br>
+&amp;=A^T\bigg[(G[W_0,W_1,W_2]\begin{bmatrix}1&amp;\frac{1}{2}&amp;\frac{1}{2}&amp;0\0&amp;\frac{1}{2}&amp;-\frac{1}{2}&amp;0\0&amp;\frac{1}{2}&amp;\frac{1}{2}&amp;1\end{bmatrix})\odot(B^T[K_0,K_1,K_2,K_3]\begin{bmatrix}1&amp;0&amp;0&amp;0\0&amp;1&amp;-1&amp;1\-1&amp;1&amp;1&amp;0\0&amp;0&amp;0&amp;-1\end{bmatrix})\bigg]A \<br>
+&amp;=A^T\bigg[(G[\overrightarrow{k_0},\overrightarrow{k_1},\overrightarrow{k_2}]G^T)\odot(B^T[\overrightarrow{d_0},\overrightarrow{d_1},\overrightarrow{d_2},\overrightarrow{d_3}]B)\bigg]A \<br>
+&amp;=A^T[(GKG^T)\odot(B^TDB)]A<br>
+\end{aligned}<br>
 $$</p>
+<ol start="6">
+<li>
+<p><strong>总结</strong></p>
+<p>Winograd算法可以分为4个步骤：</p>
+</li>
+</ol>
+<ul>
+<li>
+<ol>
+<li>初始化期间完成卷积核的变换<code>weightTransform</code>，即：$GKG^T$</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>运行期间完成输入数据的变换<code>sourceTransform</code>，即：$B^TDB$</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>运行期间完成输入数据与权重的<code>MatMul</code>，即：$(GKG^T)\odot(B^TDB)$</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>运行期间完成输出数据的变换<code>dstTransform</code>，即：$A^T[(GKG^T)\odot(B^TDB)]A$</li>
+</ol>
+</li>
+</ul>
 
                 
               </div>
