@@ -24,8 +24,9 @@
 <meta property="og:description" content="一些参考： Distributed Optimization Algorithms A survey of distributed optimization, 2019, Annual Reviews in Control 一、introduction  分布式优化 $$ \min_{x\in\mathbb{R}^n}\sum_{i&#x3D;1}^Nf_i(x), $$  二、离散时间分布式优化算法">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/09/11/unY1li45ovgDGUR.png">
+<meta property="og:image" content="https://s2.loli.net/2023/09/11/ST9zrA3w4no6muy.png">
 <meta property="article:published_time" content="2023-09-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-18T09:48:02.234Z">
+<meta property="article:modified_time" content="2024-01-08T03:36:14.740Z">
 <meta property="article:author" content="qlhhahaha">
 <meta property="article:tag" content="分布式优化">
 <meta property="article:tag" content="多智能体控制">
@@ -287,7 +288,7 @@
         
         
         
-          10 分钟
+          9 分钟
         
       </span>
     
@@ -358,14 +359,9 @@ $$</p>
  <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><code class="hljs matlab"><span class="hljs-comment">% DGD仿真</span><br><br>num_nodes = <span class="hljs-number">5</span>;  <span class="hljs-comment">% 节点数量</span><br><br><span class="hljs-comment">% 有向图</span><br>adjacency_matrix_dir = [ <span class="hljs-number">1</span>  <span class="hljs-number">0</span> <span class="hljs-number">-1</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>;<br>                        <span class="hljs-number">-1</span>  <span class="hljs-number">2</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span> <span class="hljs-number">-1</span>;<br>                        <span class="hljs-number">-1</span> <span class="hljs-number">-1</span>  <span class="hljs-number">2</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>;<br>                         <span class="hljs-number">0</span>  <span class="hljs-number">0</span> <span class="hljs-number">-1</span>  <span class="hljs-number">1</span>  <span class="hljs-number">0</span>;<br>                         <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span> <span class="hljs-number">-1</span>  <span class="hljs-number">1</span>];  <br><br><span class="hljs-comment">% 无向图</span><br>adjacency_matrix_undir = [ <span class="hljs-number">2</span> <span class="hljs-number">-1</span> <span class="hljs-number">-1</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>;<br>                          <span class="hljs-number">-1</span>  <span class="hljs-number">2</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span> <span class="hljs-number">-1</span>;<br>                          <span class="hljs-number">-1</span>  <span class="hljs-number">0</span>  <span class="hljs-number">2</span> <span class="hljs-number">-1</span>  <span class="hljs-number">0</span>;<br>                           <span class="hljs-number">0</span>  <span class="hljs-number">0</span> <span class="hljs-number">-1</span>  <span class="hljs-number">2</span> <span class="hljs-number">-1</span>;<br>                           <span class="hljs-number">0</span> <span class="hljs-number">-1</span>  <span class="hljs-number">0</span> <span class="hljs-number">-1</span>  <span class="hljs-number">2</span>];  <br><br><br><span class="hljs-comment">% 初始化节点参数和本地梯度</span><br><span class="hljs-comment">%node_params = rand(num_nodes, 1);  % 初始参数</span><br>node_params = [<span class="hljs-number">0.1</span> <span class="hljs-number">0.2</span> <span class="hljs-number">0.3</span> <span class="hljs-number">0.4</span> <span class="hljs-number">0.5</span>]&#x27;;<br>local_gradients = <span class="hljs-built_in">zeros</span>(num_nodes, <span class="hljs-number">1</span>);<br><br><span class="hljs-comment">% 设置全局目标函数（示例中为简单的平方和）</span><br>global_objective = @(x) sum(x.^<span class="hljs-number">2</span>);<br><br>num_iterations = <span class="hljs-number">1000</span>;<br>learning_rate = <span class="hljs-number">0.01</span>;<br><br><span class="hljs-comment">% 创建用于存储可视化数据的数组</span><br>param_history = <span class="hljs-built_in">zeros</span>(num_iterations, num_nodes);<br><br><br><span class="hljs-keyword">for</span> iteration = <span class="hljs-number">1</span>:num_iterations<br>    <span class="hljs-keyword">for</span> node = <span class="hljs-number">1</span>:num_nodes<br>        local_gradients(node) = <span class="hljs-number">2</span> * node_params(node);<br>        <br>        <span class="hljs-comment">% 与邻居节点共享梯度信息并更新参数</span><br>        <span class="hljs-keyword">for</span> neighbor = <span class="hljs-number">1</span>:num_nodes<br>            <span class="hljs-keyword">if</span> adjacency_matrix_dir(node, neighbor) == <span class="hljs-number">-1</span><br>                node_params(node) = node_params(node) - learning_rate * (node_params(node) - node_params(neighbor));<br>            <span class="hljs-keyword">end</span><br>        <span class="hljs-keyword">end</span><br>        <br>        <span class="hljs-comment">% 存储参数历史</span><br>        param_history(iteration, :) = node_params;<br>    <span class="hljs-keyword">end</span><br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">% 输出最终的全局最优解</span><br>global_minimizer = node_params;<br>global_minimum = global_objective(global_minimizer);<br>fprintf(<span class="hljs-string">&#x27;全局最优解：&#x27;</span>);<br><span class="hljs-built_in">disp</span>(global_minimizer);<br>fprintf(<span class="hljs-string">&#x27;全局最小值：%f\n&#x27;</span>, global_minimum);<br><br><span class="hljs-comment">% 可视化节点参数随时间的变化</span><br><span class="hljs-built_in">figure</span>;<br><span class="hljs-built_in">hold</span> on;<br><span class="hljs-keyword">for</span> node = <span class="hljs-number">1</span>:num_nodes<br>    <span class="hljs-built_in">plot</span>(<span class="hljs-number">1</span>:num_iterations, param_history(:, node), <span class="hljs-string">&#x27;LineWidth&#x27;</span>, <span class="hljs-number">2</span>, <span class="hljs-string">&#x27;DisplayName&#x27;</span>, sprintf(<span class="hljs-string">&#x27;节点 %d&#x27;</span>, node));<br><span class="hljs-keyword">end</span><br>xlabel(<span class="hljs-string">&#x27;迭代次数&#x27;</span>);<br>ylabel(<span class="hljs-string">&#x27;节点参数&#x27;</span>);<br>title(<span class="hljs-string">&#x27;节点参数随时间的变化&#x27;</span>);<br><span class="hljs-built_in">legend</span>(<span class="hljs-string">&#x27;Location&#x27;</span>, <span class="hljs-string">&#x27;Best&#x27;</span>);<br>grid on;<br><span class="hljs-built_in">hold</span> off;<br><br></code></pre></td></tr></table></figure>
 <p>仿真结果：</p>
 <p><img src="https://s2.loli.net/2023/09/11/unY1li45ovgDGUR.png" srcset="/img/loading.gif" lazyload alt="无向图"></p>
-<pre><code class="hljs"> 无需太多解释，为无向图完全连通时，最终各节点值趋于平均值，即经典的consensus
-
-
-
- ![有向图](https://s2.loli.net/2023/09/11/ST9zrA3w4no6muy.png)
-
- 为有向图时，因为不是各节点之间都还能“均匀地”通信，所以结果也不再是全局平均
-</code></pre>
+<p>无需太多解释，为无向图完全连通时，最终各节点值趋于平均值，即经典的consensus</p>
+<p><img src="https://s2.loli.net/2023/09/11/ST9zrA3w4no6muy.png" srcset="/img/loading.gif" lazyload alt="有向图"></p>
+<p>为有向图时，因为不是各节点之间都还能“均匀地”通信，所以结果也不再是全局平均</p>
 </li>
 </ol>
 <div class="note note-warning">
@@ -378,32 +374,31 @@ $$</p>
 <p>第一步：<br>
 $$<br>
 x_i(1)=\sum_{j=1}^Nw_{ij}x_j(0)-\alpha\nabla f_i(x_i(0)),<br>
-$$<br>
-其中$$\alpha&gt;0$$是固定步长</p>
-<p>第二步：<br>
-$$<br>
-\begin{aligned}x_i(k+2)&amp;=x_i(k+1)+\sum_{j=1}^Nw_{ij}x_j(k+1)-\sum_{j=1}^N\tilde{w}_{ij}x_j(k)-\alpha\left(\nabla f_i(x_i(k+1))-\nabla f_i(x_i(k))\right),\mathrm{~}k=0,\mathrm{~}1,\ldots,\end{aligned}<br>
-$$<br>
-相较于DGD算法，EXTRA用到了前两步的梯度信息，文献表明，<strong>EXTRA可以看作是具有误差校正项的DGD</strong></p>
-<p><strong>DIGing： distributed inexact gradient method and the gradient tracking</strong><br>
-$$<br>
-x_i(k+1) =\sum_{j=1}^Nw_{ij}x_j(k)-\alpha y_i(k),<br>
 $$</p>
 </li>
 </ol>
+<p>​		其中$$\alpha&gt;0$$是固定步长<br>
+​</p>
+<p>​		第二步：<br>
+$$<br>
+\begin{aligned}x_i(k+2)&amp;=x_i(k+1)+\sum_{j=1}^Nw_{ij}x_j(k+1)-\sum_{j=1}^N\tilde{w}_{ij}x_j(k)-\alpha\left(\nabla f_i(x_i(k+1))-\nabla f_i(x_i(k))\right),\mathrm{~}k=0,\mathrm{~}1,\ldots,\end{aligned}<br>
+$$<br>
+​		相较于DGD算法，EXTRA用到了前两步的梯度信息，文献表明，<strong>EXTRA可以看作是具有误差校正项的DGD</strong></p>
+<p>​		<strong>DIGing： distributed inexact gradient method and the gradient tracking</strong></p>
+<p>$$<br>
+x_i(k+1) =\sum_{j=1}^Nw_{ij}x_j(k)-\alpha y_i(k),<br>
+$$</p>
 <p>$$<br>
 y_{i}(k+1) =\sum_{i=1}^Nw_{ij}y_j(k)+\nabla f_i(x_i(k+1))-\nabla f_i(x_i(k))<br>
 $$</p>
-<pre><code class="hljs">**Distributed PI algorithm**
-</code></pre>
-<p>$$<br>
+<p>​		<strong>Distributed PI algorithm</strong><br>
+$$<br>
 x_i(k+1)=x_i(k)-v_i(k)-\alpha\nabla f_i(x_i(k))-\beta\sum_{j\in\mathcal{N}<em>i}a</em>{ij}(x_i(k)-x_j(k)),<br>
 $$</p>
 <p>$$<br>
 \nu_i(k+1) =v_i(k)+\alpha\beta\sum_{j\in\mathcal{N}<em>i}a</em>{ij}(x_i(k)-x_j(k))<br>
 $$</p>
-<p>@ -179,44 +179,44 @@</p>
-<ol>
+<ol start="3">
 <li>
 <p><strong>一阶梯度算法</strong></p>
 <p><strong>Distributed PI algorithm</strong><br>
@@ -415,7 +410,7 @@ $$</p>
 <p>$$<br>
 \dot{\nu}<em>i(t) =\sum</em>{j=1}^Na_{ij}(x_i(t)-x_j(t))<br>
 $$</p>
-<ol start="2">
+<ol start="4">
 <li>
 <p><strong>二阶梯度算法</strong></p>
 <p><strong>Zero-Gradient-Sum Algorithm</strong><br>
@@ -430,8 +425,6 @@ $$</p>
 </ol>
 <p><strong>Distributed Push-Sum Based Algorithm（离散时间）</strong></p>
 <p>大部分现有的有向图离散时间分布式算法都是基于推和</p>
-<pre><code class="hljs">**Distributed Push-Pull Based Algorithm（离散时间）**
-</code></pre>
 <p>​</p>
 <ol start="2">
 <li>
