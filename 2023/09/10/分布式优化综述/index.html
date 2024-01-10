@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://s2.loli.net/2023/09/11/unY1li45ovgDGUR.png">
 <meta property="og:image" content="https://s2.loli.net/2023/09/11/ST9zrA3w4no6muy.png">
 <meta property="article:published_time" content="2023-09-09T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-10T00:51:30.537Z">
+<meta property="article:modified_time" content="2024-01-10T00:57:15.898Z">
 <meta property="article:author" content="qlhhahaha">
 <meta property="article:tag" content="分布式优化">
 <meta property="article:tag" content="多智能体控制">
@@ -418,7 +418,7 @@ x_i(1)=\sum_{j=1}^Nw_{ij}x_j(0)-\alpha\nabla f_i(x_i(0)),<br>
 $$</p>
 </li>
 </ol>
-<p>​		其中$$\alpha&gt;0$$是固定步长<br>
+<p>​		其中$\alpha&gt;0$是固定步长<br>
 ​</p>
 <p>​		第二步：<br>
 $$<br>
@@ -426,13 +426,15 @@ $$<br>
 $$<br>
 ​		相较于DGD算法，EXTRA用到了前两步的梯度信息，文献表明，<strong>EXTRA可以看作是具有误差校正项的DGD</strong></p>
 <p>​		<strong>DIGing： distributed inexact gradient method and the gradient tracking</strong></p>
-<p>$$<br>
+<p>​		公式如下：<br>
+$$<br>
 x_i(k+1) =\sum_{j=1}^Nw_{ij}x_j(k)-\alpha y_i(k),<br>
 $$</p>
 <p>$$<br>
 y_{i}(k+1) =\sum_{i=1}^Nw_{ij}y_j(k)+\nabla f_i(x_i(k+1))-\nabla f_i(x_i(k))<br>
 $$</p>
-<p>​		<strong>Distributed PI algorithm</strong><br>
+<p>​		<strong>Distributed PI algorithm</strong></p>
+<p>​		公式如下：<br>
 $$<br>
 x_i(k+1)=x_i(k)-v_i(k)-\alpha\nabla f_i(x_i(k))-\beta\sum_{j\in\mathcal{N}<em>i}a</em>{ij}(x_i(k)-x_j(k)),<br>
 $$</p>
@@ -442,7 +444,8 @@ $$</p>
 <ol start="3">
 <li>
 <p><strong>一阶梯度算法</strong></p>
-<p><strong>Distributed PI algorithm</strong><br>
+<p><strong>Distributed PI algorithm</strong></p>
+<p>公式如下：<br>
 $$<br>
 \dot{x}<em>i(t) =\sum</em>{j=1}^Na_{ij}(x_j(t)-x_i(t))+\sum_{j=1}^Na_{ij}(\nu_j(t)-\nu_i(t))-\nabla f_i(x_i(t)),<br>
 $$</p>
@@ -454,7 +457,8 @@ $$</p>
 <ol start="4">
 <li>
 <p><strong>二阶梯度算法</strong></p>
-<p><strong>Zero-Gradient-Sum Algorithm</strong><br>
+<p><strong>Zero-Gradient-Sum Algorithm</strong></p>
+<p>公式如下：<br>
 $$<br>
 \dot{x}<em>i(t)=\gamma\left(\nabla^2f_i(x_i(t))\right)^{-1}\sum</em>{j\in\mathcal{N}<em>i}a</em>{ij}(x_j(t)-x_i(t))<br>
 $$</p>
