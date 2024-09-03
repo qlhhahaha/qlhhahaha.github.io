@@ -19,16 +19,16 @@
   <meta name="author" content="qlhhahaha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="课程来源：MIT-6S081(20 summer)课程lab：https:&#x2F;&#x2F;github.com&#x2F;qlhhahaha&#x2F;MIT6.S081-20fall            《MIT6.S081笔记》@qlhhahaha Lecture1、Introduction and Examples   XV6采用传统的内核形式，分为用户态和内核态    ​		当一个进程需要调用">
+    <meta name="description" content="课程来源：MIT-6S081(20 summer)课程lab：https:&#x2F;&#x2F;github.com&#x2F;qlhhahaha&#x2F;MIT6.S081-20fall            《MIT6.S081笔记》@qlhhahaha Lecture1、Introduction and Examples   XV6采用传统的内核形式，分为用户态和内核态  当一个进程需要调用一个内核服">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《MIT-6S081笔记》">
 <meta property="og:url" content="https://qlhhahaha.github.io/2024/09/03/%E3%80%8AMIT6.S081%E7%AC%94%E8%AE%B0%E3%80%8B/index.html">
 <meta property="og:site_name" content="钱力晖的小站">
-<meta property="og:description" content="课程来源：MIT-6S081(20 summer)课程lab：https:&#x2F;&#x2F;github.com&#x2F;qlhhahaha&#x2F;MIT6.S081-20fall            《MIT6.S081笔记》@qlhhahaha Lecture1、Introduction and Examples   XV6采用传统的内核形式，分为用户态和内核态    ​		当一个进程需要调用">
+<meta property="og:description" content="课程来源：MIT-6S081(20 summer)课程lab：https:&#x2F;&#x2F;github.com&#x2F;qlhhahaha&#x2F;MIT6.S081-20fall            《MIT6.S081笔记》@qlhhahaha Lecture1、Introduction and Examples   XV6采用传统的内核形式，分为用户态和内核态  当一个进程需要调用一个内核服">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://qlhhahaha.github.io/img/mit6S081.png">
 <meta property="article:published_time" content="2024-09-02T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-09-03T16:26:04.074Z">
+<meta property="article:modified_time" content="2024-09-03T16:32:14.508Z">
 <meta property="article:author" content="qlhhahaha">
 <meta property="article:tag" content="操作系统">
 <meta property="article:tag" content="XV6">
@@ -325,15 +325,13 @@
 <li>
 <p>XV6采用传统的内核形式，分为用户态和内核态</p>
 <p><img src="https://s2.loli.net/2024/09/03/GYLkQ2BMjsuzXZI.png" srcset="/img/loading.gif" lazyload alt=""></p>
-</li>
-</ol>
-<p>​		当一个进程需要调用一个内核服务时，它会调用一个系统调用，这是操作系统接口中的一个调用。系统调用进入内核，内核执行服务并返回。因此，一个进程在用户空间和内核空间之间交替执行</p>
+<p>当一个进程需要调用一个内核服务时，它会调用一个系统调用，这是操作系统接口中的一个调用。系统调用进入内核，内核执行服务并返回。因此，一个进程在用户空间和内核空间之间交替执行</p>
 <p>​	<div class="note note-warning">
             <p>​	💡 PS.</p><p>​	注意，xv6和POSIX标准是不兼容的，它缺少许多syscall，且已有的syscall标准也和POSIX有差异；另外xv6没有用户概念或者提供一个机制来保护一个用户不受	另一个用户的影响，用Unix的术语来说，所有的xv6进程都作为root运行，所以我们说xv6只是一个”类unix系统”</p><p>​</p>
           </div></p>
-<p>​	Q：系统调用跳到内核与标准的函数调用跳到另一个函数相比，区别是什么？</p>
-<p>​	A：<strong>Kernel</strong>的代码总是有<strong>特殊的权限</strong>。当机器启动Kernel时，Kernel会有特殊的权限能直接访问各种各样的硬件，例如磁盘。而普通的用户程序是没有办法直接	访问这些硬件的。所以，执行一个普通的函数调用时，所调用的函数并没有对于硬件的特殊权限。然而，如果触发系统调用到内核中，内核中的具体实现会具有	这些特殊的权限，这样就能<strong>修改敏感的和被保护的硬件资源</strong>，比如访问硬件磁盘。</p>
-<ol start="2">
+<p>Q：系统调用跳到内核与标准的函数调用跳到另一个函数相比，区别是什么？</p>
+<p>A：<strong>Kernel</strong>的代码总是有<strong>特殊的权限</strong>。当机器启动Kernel时，Kernel会有特殊的权限能直接访问各种各样的硬件，例如磁盘。而普通的用户程序是没有办法直接	访问这些硬件的。所以，执行一个普通的函数调用时，所调用的函数并没有对于硬件的特殊权限。然而，如果触发系统调用到内核中，内核中的具体实现会具有	这些特殊的权限，这样就能<strong>修改敏感的和被保护的硬件资源</strong>，比如访问硬件磁盘。</p>
+</li>
 <li>
 <p>argv[0]默认是程序名称，所以执行echo hello world时，argc=strlen(argv)为3，argv[1]=“hello”，argv[2]=“world”</p>
 </li>
@@ -359,17 +357,18 @@
 <li>如果参数为 EXIT_FAILURE，向外部环境报告程序运行以失败告终</li>
 <li>如果参数为其它值，效果由实现定义</li>
 </ul>
-<p>所以说return 0是有明确语义的，而[r](<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?q=return">https://www.zhihu.com/search?q=return</a> 1&amp;search_source=Entity&amp;hybrid_search_source=Entity&amp;hybrid_search_extra={“sourceType”%3A&quot;answer&quot;%2C&quot;sourceId&quot;%3A&quot;136199735&quot;})eturn 1则<strong>不具备可移植性</strong></p>
+<p>所以说return 0是有明确语义的，而return 1则<strong>不具备可移植性</strong></p>
 <p><strong>Q</strong>：如果main()中不使用return呢（从汇编角度理解）？</p>
 <p><strong>A</strong>：</p>
 <ul>
 <li>如果不写return，汇编会自动生成return</li>
 <li>如果写了return，汇编会生成相当于exit(main())的语句</li>
 <li>如果直接写exit()，就不会生成exit(main())，程序直接退出了</li>
-<li></li>
 </ul>
-<p>总结说，一个程序真正的退出，在C语言层面上，实际是exit()函数，而main函数的作用，则是给exit()提供返回值</p>
 </li>
+</ol>
+<p>总结说，一个程序真正的退出，在C语言层面上，实际是exit()函数，而main函数的作用，则是给exit()提供返回值</p>
+<ol start="4">
 <li>
 <p><strong>atoi()</strong></p>
  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">atoi</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *s)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-type">int</span> n;<br><br>    n = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span> (<span class="hljs-string">&#x27;0&#x27;</span> &lt;= *s &amp;&amp; *s &lt;= <span class="hljs-string">&#x27;9&#x27;</span>)<br>        n = n * <span class="hljs-number">10</span> + *s++ - <span class="hljs-string">&#x27;0&#x27;</span>;<br>    <span class="hljs-keyword">return</span> n;<br>&#125;<br></code></pre></td></tr></table></figure>
